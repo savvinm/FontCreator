@@ -1,0 +1,10 @@
+C:\Users\Максим\source\repos\Computer Graphics\Task 6\Task 6\obj\Debug\Task 6.csprojResolveAssemblyReference.cache
+C:\Users\Максим\source\repos\Computer Graphics\Task 6\Task 6\obj\Debug\Task_6.MainForm.resources
+C:\Users\Максим\source\repos\Computer Graphics\Task 6\Task 6\obj\Debug\Task_6.Properties.Resources.resources
+C:\Users\Максим\source\repos\Computer Graphics\Task 6\Task 6\obj\Debug\Task 6.csproj.GenerateResource.cache
+C:\Users\Максим\source\repos\Computer Graphics\Task 6\Task 6\obj\Debug\Task 6.csproj.CoreCompileInputs.cache
+C:\Users\Максим\source\repos\Computer Graphics\Task 6\Task 6\bin\Debug\Task 6.exe.config
+C:\Users\Максим\source\repos\Computer Graphics\Task 6\Task 6\bin\Debug\Task 6.exe
+C:\Users\Максим\source\repos\Computer Graphics\Task 6\Task 6\bin\Debug\Task 6.pdb
+C:\Users\Максим\source\repos\Computer Graphics\Task 6\Task 6\obj\Debug\Task 6.exe
+C:\Users\Максим\source\repos\Computer Graphics\Task 6\Task 6\obj\Debug\Task 6.pdb
