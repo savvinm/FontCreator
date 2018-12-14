@@ -46,5 +46,9 @@ namespace Task_6
             }
             g.DrawLines(Pens.Black, result);
         }
+        public override string ToString()
+        {
+            return "bz:" + P1.X.ToString() + "," + P1.Y.ToString() + "," + P2.X.ToString() + "," + P2.Y.ToString() + "," + P3.X.ToString() + "," + P3.Y.ToString() + "," + P4.X.ToString() + "," + P4.Y.ToString() + " ";
+        }
     }
 }
