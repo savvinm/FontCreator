@@ -14,10 +14,10 @@ namespace Task_6
         {
             lines = l;
         }
-        public void Draw(Graphics g)
+        public void Draw(Graphics g, bool allix)
         {
             foreach (ILine l in lines)
-                l.Draw(g);
+                l.Draw(g, allix);
         }
         public override string ToString()
         {

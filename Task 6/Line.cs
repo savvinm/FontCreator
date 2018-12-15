@@ -9,16 +9,25 @@ namespace Task_6
 {
     class Line: ILine
     {
-        PointF P1;
-        PointF P2;
-        public Line(PointF p1, PointF p2)
+        MyPoint P1;
+        MyPoint P2;
+        bool Current;
+        public Line(MyPoint p1, MyPoint p2)
         {
             P1 = p1;
             P2 = p2;
+            Current = false;
         }
-        public void Draw(Graphics g)
+        public bool Check()
         {
-            g.DrawLine(Pens.Black, P1, P2);
+            return (P1 == null || P2 == null);
+        }
+        public void Draw(Graphics g, bool allix)
+        {
+            if (Current)
+                g.DrawLine(Pens.Red, P1.X, P1.Y, P2.X, P2.Y);
+            else
+                g.DrawLine(Pens.Black, P1.X, P1.Y, P2.X, P2.Y);
         }
         public override string ToString()
         {

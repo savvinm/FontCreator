@@ -9,7 +9,8 @@ namespace Task_6
 {
     public interface ILine
     {
-        void Draw(Graphics g);
+        void Draw(Graphics g, bool allix);
         string ToString();
+        bool Check();
     }
 }

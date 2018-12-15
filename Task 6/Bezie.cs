@@ -9,16 +9,18 @@ namespace Task_6
 {
     class Bezie: ILine
     {
-        PointF P1;
-        PointF P2;
-        PointF P3;
-        PointF P4;
-        public Bezie(PointF p1, PointF p2, PointF p3, PointF p4)
+        MyPoint P1;
+        MyPoint P2;
+        MyPoint P3;
+        MyPoint P4;
+        bool Current;
+        public Bezie(MyPoint p1, MyPoint p2, MyPoint p3, MyPoint p4)
         {
             P1 = p1;
             P2 = p2;
             P3 = p3;
             P4 = p4;
+            Current = false;
         }
         private PointF B(float t)
         {
@@ -30,7 +32,11 @@ namespace Task_6
             float y = c0 * P1.Y + c1 * P2.Y + c2 * P3.Y + c3 * P4.Y;
             return new PointF(x, y);
         }
-        public void Draw(Graphics g)
+        public bool Check()
+        {
+            return (P2 == null || P1 == null || P3 == null || P4 == null);
+        }
+        public void Draw(Graphics g, bool allix)
         {
             float t = 0f;
             float dt = 0.01f;
@@ -42,9 +48,18 @@ namespace Task_6
                 //result[(int)(t * 100)] = new PointF(x, y);
                 result[i] = B(t);
                 t += dt;
-                
+
             }
-            g.DrawLines(Pens.Black, result);
+            if (allix)
+            {
+                g.DrawLine(Pens.Silver, P1.X, P1.Y, P2.X, P2.Y);
+                g.DrawLine(Pens.Silver, P3.X, P3.Y, P4.X, P4.Y);
+            }
+            if (Current)
+                g.DrawLines(Pens.Red, result);
+            else
+                g.DrawLines(Pens.Black, result);
+            
         }
         public override string ToString()
         {

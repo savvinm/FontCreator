@@ -19,7 +19,7 @@ namespace Task_6
         public void Draw(Graphics g)
         {
             foreach (Contour c in contours)
-                c.Draw(g);
+                c.Draw(g, true);
         }
         public override string ToString()
         {
