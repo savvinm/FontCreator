@@ -23,7 +23,14 @@ namespace Task_6
         }
         public void Load(string filename)
         {
-
+            string line = "";
+            StreamReader sr = new StreamReader(filename);
+            while (true)
+            {
+                line = sr.ReadLine();
+                if (line == "")
+                    break;
+            }
         }
     }
 }

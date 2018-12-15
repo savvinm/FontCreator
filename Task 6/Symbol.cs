@@ -10,28 +10,22 @@ namespace Task_6
     class Symbol
     {
         char symbol;
-        List<Bezie> bezies;
-        List<Line> lines;
-        public Symbol(char c, List<Bezie> b, List<Line> l)
+        List<Contour> contours;
+        public Symbol(char s, List<Contour> c)
         {
-            symbol = c; 
-            bezies = b;
-            lines = l;
+            symbol = s;
+            contours = c;
         }
         public void Draw(Graphics g)
         {
-            foreach (Bezie b in bezies)
-                b.Draw(g);
-            foreach (Line l in lines)
-                l.Draw(g);
+            foreach (Contour c in contours)
+                c.Draw(g);
         }
         public override string ToString()
         {
             string result = symbol.ToString() + " ";
-            foreach (Line l in lines)
-                result += l.ToString();
-            foreach (Bezie b in bezies)
-                result += b.ToString();
+            foreach (Contour c in contours)
+                result += c.ToString();
             return result;
         }
     }

@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace Task_6
 {
-    class Bezie
+    class Bezie: ILine
     {
         PointF P1;
         PointF P2;

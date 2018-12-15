@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace Task_6
 {
-    class Line
+    class Line: ILine
     {
         PointF P1;
         PointF P2;
