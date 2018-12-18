@@ -13,46 +13,17 @@ namespace Task_6
 {
     public partial class MainForm : Form
     {
-        List<PointF> points;
         WorkSpace workSpace;
         Point last;
+        List<List<object>> list;
         public MainForm()
         {
             InitializeComponent();
             typeof(Panel).InvokeMember("DoubleBuffered", BindingFlags.SetProperty
            | BindingFlags.Instance | BindingFlags.NonPublic, null, WorkPanel, new object[] { true });
-            points = new List<PointF>();
-            workSpace = new WorkSpace(WorkPanel.Width, WorkPanel.Height, 'A');
+            workSpace = new WorkSpace(WorkPanel.Width, WorkPanel.Height);
+            list = new List<List<object>>();
         }
-
-        private void MainForm_Paint(object sender, PaintEventArgs e)
-        {
-            Draw(e.Graphics);
-        }
-        private void Draw(Graphics g)
-        {
-            /*foreach (PointF p in points)
-                g.DrawEllipse(Pens.Black, p.X, p.Y, 2, 2);
-            if (points.Count == 4)
-            {
-                Bezie b = new Bezie(points[0], points[1], points[2], points[3]);
-                b.Draw(g);
-            }*/
-            workSpace.DrawAll(g);
-            g.Dispose();
-        }
-
-        private void MainForm_MouseDown(object sender, MouseEventArgs e)
-        {
-            /*if (workSpace.SearchPoint(e.Location) != -1)
-            {
-                workSpace.currpoints.Add(e.Location);
-            }
-            workSpace.AddPoint(e.Location);
-            //points.Add(e.Location);
-            Invalidate();*/
-        }
-
         private void AddLineButton_Click(object sender, EventArgs e)
         {
             workSpace.AddILine();
@@ -61,7 +32,6 @@ namespace Task_6
 
         private void WorkPanel_Paint(object sender, PaintEventArgs e)
         {
-            // Draw(e.Graphics);
             Bitmap bmp = new Bitmap(WorkPanel.Width, WorkPanel.Height);
             Graphics g = Graphics.FromImage(bmp);
             workSpace.DrawAll(g);
@@ -77,12 +47,6 @@ namespace Task_6
                 last = e.Location;
             }
             workSpace.PointIn(e.Location);
-            /*if (workSpace.SearchPoint(e.Location) != -1)
-            {
-                workSpace.currpoints.Add(e.Location);
-            }
-            workSpace.AddPoint(e.Location);*/
-            //points.Add(e.Location);
             WorkPanel.Invalidate();
         }
 
@@ -114,6 +78,77 @@ namespace Task_6
         private void DeleteButton_Click(object sender, EventArgs e)
         {
             workSpace.DeletePoints();
+            WorkPanel.Invalidate();
+        }
+
+        private void AddSymbolButton_Click(object sender, EventArgs e)
+        {
+            SYmbolList.Items.Add("Символ " + SymbolTextBox.Text[0]);
+            workSpace.AddSymbol(SymbolTextBox.Text[0]);
+            list.Add(new List<object>());
+            //ContourList.Items.Clear();
+            List<object> ob = new List<object>();
+           /* foreach (object o in ContourList.Items)
+               ob.Add(o);
+            list[SYmbolList.SelectedIndex] = s;
+            foreach (string s in list.Last())
+                ContourList.Items.Add(s);*/
+        }
+
+        private void AddContourButton_Click(object sender, EventArgs e)
+        {
+            ContourList.Items.Add("Контур " + (ContourList.Items.Count + 1));
+            list[SYmbolList.SelectedIndex].Add("Контур " + (ContourList.Items.Count));
+            workSpace.AddContour();
+        }
+
+        private void ContourList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            workSpace.ChooseContour(ContourList.SelectedIndex);
+            WorkPanel.Invalidate();
+        }
+
+        private void SYmbolList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            workSpace.ChooseSymbol(SYmbolList.SelectedIndex);
+            LoadContourList(SYmbolList.SelectedIndex);
+            ContourList.ClearSelected();
+            workSpace.ChooseContour(-1);
+            WorkPanel.Invalidate(); 
+        }
+        private void LoadContourList(int n)
+        {
+            if (n != -1)
+            {
+                ContourList.Items.Clear();
+                foreach (object ob in list[n])
+                    ContourList.Items.Add(ob);
+            }
+        }
+
+        private void AllixCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            workSpace.CheckAllix(AllixCheckBox.Checked);
+            WorkPanel.Invalidate();
+        }
+
+        private void AllSymbolCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            workSpace.CheckAllSymbol(AllSymbolCheckBox.Checked);
+            WorkPanel.Invalidate();
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void newFontToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            workSpace = new WorkSpace(WorkPanel.Width, WorkPanel.Height);
+            list.Clear();
+            SYmbolList.Items.Clear();
+            ContourList.Items.Clear();
             WorkPanel.Invalidate();
         }
     }

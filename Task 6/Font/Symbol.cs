@@ -9,12 +9,21 @@ namespace Task_6
 {
     class Symbol
     {
-        char symbol;
-        List<Contour> contours;
+        public char symbol;
+        public List<Contour> contours;
         public Symbol(char s, List<Contour> c)
         {
             symbol = s;
             contours = c;
+        }
+        public Symbol(char s)
+        {
+            symbol = s;
+            contours = new List<Contour>();
+        }
+        public Symbol()
+        {
+            contours = new List<Contour>();
         }
         public void Draw(Graphics g)
         {

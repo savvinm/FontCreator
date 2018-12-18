@@ -11,28 +11,78 @@ namespace Task_6
     {
         int Height { get; set; }
         int Width { get; set; }
-        List<Contour> contours;
-        char symbol;
-        public List<ILine> lines;
-        public List<MyPoint> currpoints;
+        MyFont font;
+        Symbol curSymbol;
+        Contour curContour;
+        List<ILine> lines;
+        List<MyPoint> currpoints;
         MyPoint lastPoint;
-        public List<MyPoint> myPoints;
-        public WorkSpace(int w, int h, char c)
+        List<MyPoint> myPoints;
+        bool allix;
+        bool AllSymbol;
+        public WorkSpace(int w, int h)
         {
             Height = h;
             Width = w;
-            lines = new List<ILine>();
-            contours = new List<Contour>();
             currpoints = new List<MyPoint>();
             myPoints = new List<MyPoint>();
-            symbol = c;
+            font = new MyFont();
+            allix = true;
+            AllSymbol = false;
+        }
+        public void DrawLines(Graphics g)
+        {
+            Pen p = new Pen(Color.Silver);
+            p.Color = Color.FromArgb(50, Color.Black);
+            float dx = Width / 25;
+            float dy = Height / 25;
+            for (int i = 0; i <= 25; i++)
+            {
+                g.DrawLine(p, dx * i, 0, dx * i, Height);
+                g.DrawLine(p, 0, dy * i, Width, dy * i);
+            }
+        }
+        public void ChooseSymbol(int n)
+        {
+            if (n == -1)
+            {
+                curSymbol = null;
+                return;
+            }
+            if (n < font.symbols.Count)
+            {
+                curSymbol = font.symbols[n];
+            }
         }
         public void ChooseContour(int n)
         {
-            if (n < contours.Count)
+            if (n == -1)
             {
-                lines = contours[n].lines;
+                curContour = null;
+                return;
             }
+            if (n < curSymbol.contours.Count)
+            {
+                lines = curSymbol.contours[n].lines;
+                curContour = curSymbol.contours[n];
+                myPoints = curContour.myPoints;
+            }
+        }
+        public void AddSymbol(char s)
+        {
+            font.symbols.Add(new Symbol(s));
+        }
+        public void AddContour()
+        {
+            curSymbol.contours.Add(new Contour());
+        }
+        public void CheckAllix(bool all)
+        {
+            allix = all;
+        }
+        public void CheckAllSymbol(bool all)
+        {
+            AllSymbol = all;
         }
         public void AddPoint(PointF p)
         {
@@ -53,23 +103,6 @@ namespace Task_6
         }
         public void PointIn(PointF p)
         {
-            /*lastPoint = p;
-            int n = SearchPoint(p);
-            int m = SearchCurrPoint(p);
-            if (n != -1)
-            {
-                currpoints.Add(points[n]);
-                points.RemoveAt(n);
-                return;
-            }
-            if (m != -1)
-            {
-                points.Add(currpoints[m]);
-                currpoints.RemoveAt(m);
-                return;
-            }
-            else
-                points.Add(p);*/
             int n = SearchMyPoint(p);
             if (n != -1)
             {
@@ -99,7 +132,10 @@ namespace Task_6
             for (int i = 0; i < myPoints.Count; i++)
             {
                 if (myPoints[i].Current)
+                {
                     myPoints.RemoveAt(i);
+                    i--;
+                }
             }
             foreach(ILine l in lines)
             {
@@ -113,36 +149,16 @@ namespace Task_6
         {
             lines.Add(new Line(p1, p2));
         }
-        /*public int SearchCurrPoint(PointF p)
-        {
-            for(int i = 0; i < currpoints.Count; i++)
-            {
-                PointF P = currpoints[i];
-                if (p.X <= P.X + 3 && p.X >= P.X - 3 && p.Y >= P.Y - 3 && p.Y <= P.Y + 3)
-                    return i;
-            }
-            return -1;
-        }*/
         public int SearchMyPoint(PointF p)
         {
             for (int i = 0; i < myPoints.Count; i++)
             {
                 MyPoint P = myPoints[i];
-                if (p.X <= P.X + 3 && p.X >= P.X - 3 && p.Y >= P.Y - 3 && p.Y <= P.Y + 3)
+                if (p.X <= P.X + 4 && p.X >= P.X - 4 && p.Y >= P.Y - 4 && p.Y <= P.Y + 4)
                     return i;
             }
             return -1;
         }
-        /*public int SearchPoint(PointF p)
-        {
-            for (int i = 0; i < points.Count; i++)
-            {
-                PointF P = points[i];
-                if (p.X <= P.X + 3 && p.X >= P.X - 3 && p.Y >= P.Y - 3 && p.Y <= P.Y + 3)
-                    return i;
-            }
-            return -1;
-        }*/
         public void AddILine(MyPoint p1, MyPoint p2, MyPoint p3, MyPoint p4)
         {
             lines.Add(new Bezie(p1, p2, p3, p4));
@@ -180,18 +196,28 @@ namespace Task_6
             foreach (Contour co in c)
                 co.Draw(g, true);
         }
+        public void DrawSymbol(Graphics g)
+        {
+            if (curSymbol != null && curSymbol.contours != null)
+            {
+                foreach (Contour c in curSymbol.contours)
+                    c.Draw(g, allix);
+            }
+        }
+        public void DrawCurContour(Graphics g)
+        {
+            if (curContour != null)
+            {
+                curContour.Draw(g, allix);
+            }
+        }
         public void DrawAll(Graphics g)
         {
-            /*foreach (PointF p in points)
-                g.DrawEllipse(Pens.Black, p.X - 2, p.Y -2, 4, 4);
-            foreach (PointF p in currpoints)
-            g.DrawEllipse(Pens.Red, p.X - 2, p.Y -2 , 4, 4);*/
-            foreach (MyPoint p in myPoints)
-                p.Draw(g);
-            foreach (ILine l in lines)
-                l.Draw(g, true);
-            foreach (Contour c in contours)
-                c.Draw(g, true);
+            DrawLines(g);
+            if (AllSymbol)
+                DrawSymbol(g);
+            else
+                DrawCurContour(g);
         }
     }
 }

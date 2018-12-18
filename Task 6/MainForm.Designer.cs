@@ -32,11 +32,25 @@
             this.AddCurveButton = new System.Windows.Forms.Button();
             this.WorkPanel = new System.Windows.Forms.Panel();
             this.DeleteButton = new System.Windows.Forms.Button();
+            this.AddSymbolButton = new System.Windows.Forms.Button();
+            this.AddContourButton = new System.Windows.Forms.Button();
+            this.SYmbolList = new System.Windows.Forms.ListBox();
+            this.SymbolTextBox = new System.Windows.Forms.TextBox();
+            this.ContourList = new System.Windows.Forms.ListBox();
+            this.AllixCheckBox = new System.Windows.Forms.CheckBox();
+            this.AllSymbolCheckBox = new System.Windows.Forms.CheckBox();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.newFontToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveFontToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadFontToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // AddLineButton
             // 
-            this.AddLineButton.Location = new System.Drawing.Point(787, 202);
+            this.AddLineButton.Location = new System.Drawing.Point(772, 396);
             this.AddLineButton.Name = "AddLineButton";
             this.AddLineButton.Size = new System.Drawing.Size(80, 45);
             this.AddLineButton.TabIndex = 0;
@@ -46,7 +60,7 @@
             // 
             // AddCurveButton
             // 
-            this.AddCurveButton.Location = new System.Drawing.Point(900, 202);
+            this.AddCurveButton.Location = new System.Drawing.Point(881, 396);
             this.AddCurveButton.Name = "AddCurveButton";
             this.AddCurveButton.Size = new System.Drawing.Size(80, 45);
             this.AddCurveButton.TabIndex = 1;
@@ -59,9 +73,9 @@
             this.WorkPanel.BackColor = System.Drawing.Color.Azure;
             this.WorkPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.WorkPanel.Cursor = System.Windows.Forms.Cursors.Default;
-            this.WorkPanel.Location = new System.Drawing.Point(90, 69);
+            this.WorkPanel.Location = new System.Drawing.Point(167, 69);
             this.WorkPanel.Name = "WorkPanel";
-            this.WorkPanel.Size = new System.Drawing.Size(631, 512);
+            this.WorkPanel.Size = new System.Drawing.Size(500, 500);
             this.WorkPanel.TabIndex = 2;
             this.WorkPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.WorkPanel_Paint);
             this.WorkPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.WorkPanel_MouseDown);
@@ -70,7 +84,7 @@
             // 
             // DeleteButton
             // 
-            this.DeleteButton.Location = new System.Drawing.Point(787, 294);
+            this.DeleteButton.Location = new System.Drawing.Point(772, 459);
             this.DeleteButton.Name = "DeleteButton";
             this.DeleteButton.Size = new System.Drawing.Size(80, 45);
             this.DeleteButton.TabIndex = 3;
@@ -78,20 +92,149 @@
             this.DeleteButton.UseVisualStyleBackColor = true;
             this.DeleteButton.Click += new System.EventHandler(this.DeleteButton_Click);
             // 
+            // AddSymbolButton
+            // 
+            this.AddSymbolButton.Location = new System.Drawing.Point(772, 222);
+            this.AddSymbolButton.Name = "AddSymbolButton";
+            this.AddSymbolButton.Size = new System.Drawing.Size(120, 40);
+            this.AddSymbolButton.TabIndex = 4;
+            this.AddSymbolButton.Text = "Add symbol";
+            this.AddSymbolButton.UseVisualStyleBackColor = true;
+            this.AddSymbolButton.Click += new System.EventHandler(this.AddSymbolButton_Click);
+            // 
+            // AddContourButton
+            // 
+            this.AddContourButton.Location = new System.Drawing.Point(928, 222);
+            this.AddContourButton.Name = "AddContourButton";
+            this.AddContourButton.Size = new System.Drawing.Size(120, 40);
+            this.AddContourButton.TabIndex = 5;
+            this.AddContourButton.Text = "Add contour";
+            this.AddContourButton.UseVisualStyleBackColor = true;
+            this.AddContourButton.Click += new System.EventHandler(this.AddContourButton_Click);
+            // 
+            // SYmbolList
+            // 
+            this.SYmbolList.FormattingEnabled = true;
+            this.SYmbolList.ItemHeight = 16;
+            this.SYmbolList.Location = new System.Drawing.Point(772, 69);
+            this.SYmbolList.Name = "SYmbolList";
+            this.SYmbolList.Size = new System.Drawing.Size(120, 132);
+            this.SYmbolList.TabIndex = 6;
+            this.SYmbolList.SelectedIndexChanged += new System.EventHandler(this.SYmbolList_SelectedIndexChanged);
+            // 
+            // SymbolTextBox
+            // 
+            this.SymbolTextBox.Location = new System.Drawing.Point(772, 268);
+            this.SymbolTextBox.Name = "SymbolTextBox";
+            this.SymbolTextBox.Size = new System.Drawing.Size(120, 22);
+            this.SymbolTextBox.TabIndex = 7;
+            this.SymbolTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // ContourList
+            // 
+            this.ContourList.FormattingEnabled = true;
+            this.ContourList.ItemHeight = 16;
+            this.ContourList.Location = new System.Drawing.Point(928, 69);
+            this.ContourList.Name = "ContourList";
+            this.ContourList.Size = new System.Drawing.Size(120, 132);
+            this.ContourList.TabIndex = 8;
+            this.ContourList.SelectedIndexChanged += new System.EventHandler(this.ContourList_SelectedIndexChanged);
+            // 
+            // AllixCheckBox
+            // 
+            this.AllixCheckBox.AutoSize = true;
+            this.AllixCheckBox.Checked = true;
+            this.AllixCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.AllixCheckBox.Location = new System.Drawing.Point(881, 456);
+            this.AllixCheckBox.Name = "AllixCheckBox";
+            this.AllixCheckBox.Size = new System.Drawing.Size(143, 21);
+            this.AllixCheckBox.TabIndex = 10;
+            this.AllixCheckBox.Text = "Auxillary elements";
+            this.AllixCheckBox.UseVisualStyleBackColor = true;
+            this.AllixCheckBox.CheckedChanged += new System.EventHandler(this.AllixCheckBox_CheckedChanged);
+            // 
+            // AllSymbolCheckBox
+            // 
+            this.AllSymbolCheckBox.AutoSize = true;
+            this.AllSymbolCheckBox.Location = new System.Drawing.Point(881, 483);
+            this.AllSymbolCheckBox.Name = "AllSymbolCheckBox";
+            this.AllSymbolCheckBox.Size = new System.Drawing.Size(93, 21);
+            this.AllSymbolCheckBox.TabIndex = 11;
+            this.AllSymbolCheckBox.Text = "All symbol";
+            this.AllSymbolCheckBox.UseVisualStyleBackColor = true;
+            this.AllSymbolCheckBox.CheckedChanged += new System.EventHandler(this.AllSymbolCheckBox_CheckedChanged);
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem,
+            this.exitToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1136, 28);
+            this.menuStrip1.TabIndex = 12;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.newFontToolStripMenuItem,
+            this.saveFontToolStripMenuItem,
+            this.loadFontToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(44, 24);
+            this.fileToolStripMenuItem.Text = "File";
+            // 
+            // newFontToolStripMenuItem
+            // 
+            this.newFontToolStripMenuItem.Name = "newFontToolStripMenuItem";
+            this.newFontToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.newFontToolStripMenuItem.Text = "New Font";
+            this.newFontToolStripMenuItem.Click += new System.EventHandler(this.newFontToolStripMenuItem_Click);
+            // 
+            // saveFontToolStripMenuItem
+            // 
+            this.saveFontToolStripMenuItem.Name = "saveFontToolStripMenuItem";
+            this.saveFontToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.saveFontToolStripMenuItem.Text = "Save Font";
+            // 
+            // loadFontToolStripMenuItem
+            // 
+            this.loadFontToolStripMenuItem.Name = "loadFontToolStripMenuItem";
+            this.loadFontToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.loadFontToolStripMenuItem.Text = "Load Font";
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(45, 24);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1136, 647);
+            this.Controls.Add(this.AllSymbolCheckBox);
+            this.Controls.Add(this.AllixCheckBox);
+            this.Controls.Add(this.ContourList);
+            this.Controls.Add(this.SymbolTextBox);
+            this.Controls.Add(this.SYmbolList);
+            this.Controls.Add(this.AddContourButton);
+            this.Controls.Add(this.AddSymbolButton);
             this.Controls.Add(this.DeleteButton);
             this.Controls.Add(this.WorkPanel);
             this.Controls.Add(this.AddCurveButton);
             this.Controls.Add(this.AddLineButton);
+            this.Controls.Add(this.menuStrip1);
             this.Name = "MainForm";
             this.Text = "MyFont";
-            this.Paint += new System.Windows.Forms.PaintEventHandler(this.MainForm_Paint);
-            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseDown);
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -101,6 +244,19 @@
         private System.Windows.Forms.Button AddCurveButton;
         private System.Windows.Forms.Panel WorkPanel;
         private System.Windows.Forms.Button DeleteButton;
+        private System.Windows.Forms.Button AddSymbolButton;
+        private System.Windows.Forms.Button AddContourButton;
+        private System.Windows.Forms.ListBox SYmbolList;
+        private System.Windows.Forms.TextBox SymbolTextBox;
+        private System.Windows.Forms.ListBox ContourList;
+        private System.Windows.Forms.CheckBox AllixCheckBox;
+        private System.Windows.Forms.CheckBox AllSymbolCheckBox;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem newFontToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveFontToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem loadFontToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
     }
 }
 

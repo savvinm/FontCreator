@@ -7,12 +7,16 @@ using System.IO;
 
 namespace Task_6
 {
-    class Font
+    class MyFont
     {
-        List<Symbol> symbols;
-        public Font(int sCount)
+        public List<Symbol> symbols;
+        public MyFont(int sCount)
         {
             symbols = new List<Symbol>(sCount);
+        }
+        public MyFont()
+        {
+            symbols = new List<Symbol>();
         }
         public void Save(string filename)
         {
