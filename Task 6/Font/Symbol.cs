@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace Task_6
 {
-    class Symbol
+    public class Symbol
     {
         public char symbol;
         public List<Contour> contours;
@@ -25,10 +25,20 @@ namespace Task_6
         {
             contours = new List<Contour>();
         }
+        public void ToOnePT(float coef)
+        {
+            foreach (Contour c in contours)
+                c.ToOnePT(coef);
+        }
         public void Draw(Graphics g)
         {
             foreach (Contour c in contours)
                 c.Draw(g, true);
+        }
+        public void Draw(Graphics g, float x, float y)
+        {
+            foreach (Contour c in contours)
+                c.Draw(g, false, x, y);
         }
         public override string ToString()
         {

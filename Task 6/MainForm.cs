@@ -13,7 +13,7 @@ namespace Task_6
 {
     public partial class MainForm : Form
     {
-        WorkSpace workSpace;
+        public WorkSpace workSpace;
         Point last;
         List<List<object>> list;
         public MainForm()
@@ -150,6 +150,12 @@ namespace Task_6
             SYmbolList.Items.Clear();
             ContourList.Items.Clear();
             WorkPanel.Invalidate();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            DrawingForm f2 = new DrawingForm(this);
+            f2.Show();
         }
     }
 }

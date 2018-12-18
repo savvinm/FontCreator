@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Drawing;
 
 namespace Task_6
 {
-    class MyFont
+    public class MyFont
     {
         public List<Symbol> symbols;
         public MyFont(int sCount)
@@ -17,6 +18,27 @@ namespace Task_6
         public MyFont()
         {
             symbols = new List<Symbol>();
+        }
+        public void ToOnePT(float coef)
+        {
+            foreach (Symbol s in symbols)
+                s.ToOnePT(coef);
+        }
+        public void DrawSymbol(Graphics g, char c, float x, float y)
+        {
+            foreach(Symbol s in symbols)
+            {
+                if (s.symbol == c)
+                    s.Draw(g, x, y);
+            }
+        }
+        public void DrawSymbol(Graphics g, char c)
+        {
+            foreach (Symbol s in symbols)
+            {
+                if (s.symbol == c)
+                    s.Draw(g);
+            }
         }
         public void Save(string filename)
         {

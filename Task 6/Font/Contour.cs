@@ -28,6 +28,22 @@ namespace Task_6
             foreach (ILine l in lines)
                 l.Draw(g, allix);
         }
+        public void Draw(Graphics g, bool allix, float x, float y)
+        {
+            foreach (MyPoint p in myPoints)
+                p.Draw(g, allix, x, y);
+            foreach (ILine l in lines)
+                l.Draw(g, allix, x, y);
+        }
+        public void ToOnePT(float coef)
+        {
+            foreach(ILine l in lines)
+            {
+                l.ToOnePT(coef);
+            }
+            foreach (MyPoint p in myPoints)
+                p.ToOnePT(coef);
+        }
         public override string ToString()
         {
             string result = "";

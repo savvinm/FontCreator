@@ -11,7 +11,7 @@ namespace Task_6
     {
         int Height { get; set; }
         int Width { get; set; }
-        MyFont font;
+        public MyFont font;
         Symbol curSymbol;
         Contour curContour;
         List<ILine> lines;
