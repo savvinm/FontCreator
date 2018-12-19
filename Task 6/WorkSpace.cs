@@ -30,6 +30,39 @@ namespace Task_6
             allix = true;
             AllSymbol = false;
         }
+        public void SaveFont(string filename)
+        {
+            font.Save(filename);
+        }
+        public void LoadFont(string filename)
+        {
+            font = font.Load(filename);
+            curContour = null;
+            currpoints.Clear();
+            curSymbol = null;
+            myPoints = null;
+        }
+        public List<object> SymbolList()
+        {
+            List<object> list = new List<object>();
+            foreach(Symbol s in font.symbols)
+            {
+                list.Add("Symbol " + s.symbol);
+            }
+            return list;
+        }
+        public List<object> ContourList(int n)
+        {
+            Symbol s = font.symbols[n];
+            int m = 1;
+            List<object> list = new List<object>();
+            foreach(Contour c in s.contours)
+            {
+                list.Add("Contour " + m);
+                m++;
+            }
+            return list;
+        }
         public void DrawLines(Graphics g)
         {
             Pen p = new Pen(Color.Silver);

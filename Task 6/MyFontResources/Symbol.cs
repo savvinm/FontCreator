@@ -44,7 +44,7 @@ namespace Task_6
         {
             string result = symbol.ToString() + " ";
             foreach (Contour c in contours)
-                result += c.ToString();
+                result += "cnt:" + c.ToString();
             return result;
         }
     }

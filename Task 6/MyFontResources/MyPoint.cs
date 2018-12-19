@@ -18,6 +18,12 @@ namespace Task_6
             Y = p.Y;
             Current = false;
         }
+        public MyPoint()
+        {
+            X = 0;
+            Y = 0;
+            Current = false;
+        }
         public void ToOnePT(float coef)
         {
             X = X * coef;
@@ -47,9 +53,10 @@ namespace Task_6
             //f.
             g.DrawString(s, new Font("Courier", 8), b, X + 4, Y - 1);
             if (Current)
-                g.DrawEllipse(Pens.Red, x +  X - 3, y + Y - 3, 6, 6);
+                g.DrawEllipse(Pens.Red, x + X - 3, y + Y - 3, 6, 6);
             else
-                g.DrawEllipse(Pens.Black, x + X - 3,  y + Y - 3, 6, 6);
+                g.DrawEllipse(Pens.Black, x + X - 3, y + Y - 3, 6, 6);
         }
     }
 }
+

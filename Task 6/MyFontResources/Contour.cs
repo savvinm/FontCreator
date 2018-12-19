@@ -48,7 +48,7 @@ namespace Task_6
         {
             string result = "";
             foreach (ILine l in lines)
-                result += l.ToString();
+                result += "ln:" + l.ToString();
             return result;
         }
     }

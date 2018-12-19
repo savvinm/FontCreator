@@ -45,7 +45,7 @@ namespace Task_6
         }
         public override string ToString()
         {
-            return "ln:" + P1.X.ToString() + "," + P1.Y.ToString() + "," + P2.X.ToString() + "," + P2.Y.ToString() + " "; 
+            return  P1.X.ToString() + "," + P1.Y.ToString() + "," + P2.X.ToString() + "," + P2.Y.ToString() + " "; 
         }
     }
 }

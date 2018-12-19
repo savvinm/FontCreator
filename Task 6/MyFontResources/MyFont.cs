@@ -47,16 +47,21 @@ namespace Task_6
                 sw.WriteLine(s.ToString());
             sw.Close();
         }
-        public void Load(string filename)
+        public MyFont Load(string filename)
         {
+            MyFont font = new MyFont();
+            FontInterpretator fi = new FontInterpretator();
             string line = "";
             StreamReader sr = new StreamReader(filename);
             while (true)
             {
                 line = sr.ReadLine();
-                if (line == "")
+                if (line == null)
                     break;
+                font.symbols.Add(fi.SymbolFromString(line));
             }
+            sr.Close();
+            return font;
         }
     }
 }

@@ -83,7 +83,7 @@ namespace Task_6
 
         private void AddSymbolButton_Click(object sender, EventArgs e)
         {
-            SYmbolList.Items.Add("Символ " + SymbolTextBox.Text[0]);
+            SYmbolList.Items.Add("Symbol " + SymbolTextBox.Text[0]);
             workSpace.AddSymbol(SymbolTextBox.Text[0]);
             list.Add(new List<object>());
             //ContourList.Items.Clear();
@@ -97,8 +97,8 @@ namespace Task_6
 
         private void AddContourButton_Click(object sender, EventArgs e)
         {
-            ContourList.Items.Add("Контур " + (ContourList.Items.Count + 1));
-            list[SYmbolList.SelectedIndex].Add("Контур " + (ContourList.Items.Count));
+            ContourList.Items.Add("Contour " + (ContourList.Items.Count + 1));
+            list[SYmbolList.SelectedIndex].Add("Contour " + (ContourList.Items.Count));
             workSpace.AddContour();
         }
 
@@ -107,7 +107,10 @@ namespace Task_6
             workSpace.ChooseContour(ContourList.SelectedIndex);
             WorkPanel.Invalidate();
         }
-
+        private void LoadSymbolList()
+        {
+            SYmbolList.Items.Clear();
+        }
         private void SYmbolList_SelectedIndexChanged(object sender, EventArgs e)
         {
             workSpace.ChooseSymbol(SYmbolList.SelectedIndex);
@@ -156,6 +159,39 @@ namespace Task_6
         {
             DrawingForm f2 = new DrawingForm(this);
             f2.Show();
+        }
+
+        private void saveFontToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+                workSpace.SaveFont(saveFileDialog1.FileName);
+        }
+
+        private void loadFontToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                List<object> l = new List<object>();
+                int n = 0;
+                workSpace.LoadFont(openFileDialog1.FileName);
+                SYmbolList.Items.Clear();
+                l = workSpace.SymbolList();
+                foreach (object o in l)
+                {
+                    list.Add(new List<object>());
+                    SYmbolList.Items.Add(o);
+                }
+                List<object> li = new List<object>();
+                foreach (object o in l)
+                {
+                    list[n] = new List<object>();
+                    li = workSpace.ContourList(n);
+                    foreach (object ob in li)
+                        list[n].Add(ob);
+                    n++;
+                }
+            }
+            Invalidate();
         }
     }
 }

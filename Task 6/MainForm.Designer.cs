@@ -46,6 +46,8 @@
             this.loadFontToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button1 = new System.Windows.Forms.Button();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -190,21 +192,23 @@
             // newFontToolStripMenuItem
             // 
             this.newFontToolStripMenuItem.Name = "newFontToolStripMenuItem";
-            this.newFontToolStripMenuItem.Size = new System.Drawing.Size(150, 26);
+            this.newFontToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
             this.newFontToolStripMenuItem.Text = "New Font";
             this.newFontToolStripMenuItem.Click += new System.EventHandler(this.newFontToolStripMenuItem_Click);
             // 
             // saveFontToolStripMenuItem
             // 
             this.saveFontToolStripMenuItem.Name = "saveFontToolStripMenuItem";
-            this.saveFontToolStripMenuItem.Size = new System.Drawing.Size(150, 26);
+            this.saveFontToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
             this.saveFontToolStripMenuItem.Text = "Save Font";
+            this.saveFontToolStripMenuItem.Click += new System.EventHandler(this.saveFontToolStripMenuItem_Click);
             // 
             // loadFontToolStripMenuItem
             // 
             this.loadFontToolStripMenuItem.Name = "loadFontToolStripMenuItem";
-            this.loadFontToolStripMenuItem.Size = new System.Drawing.Size(150, 26);
+            this.loadFontToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
             this.loadFontToolStripMenuItem.Text = "Load Font";
+            this.loadFontToolStripMenuItem.Click += new System.EventHandler(this.loadFontToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
@@ -222,6 +226,10 @@
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
             // 
             // MainForm
             // 
@@ -270,6 +278,8 @@
         private System.Windows.Forms.ToolStripMenuItem loadFontToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }
 
