@@ -46,10 +46,42 @@ namespace Task_6
                 while (str[pos] == ' ')
                     pos++;
             }
-            foreach(ILine l in c.lines)
+            /*foreach(ILine l in c.lines)
             {
                 foreach (MyPoint p in l.GetPoints())
                     c.myPoints.Add(p);
+            }*/
+            for (int j = 0; j < c.lines.Count; j++)
+            {
+                List<MyPoint> list = c.lines[j].GetPoints();
+                for (int i = 0; i < list.Count; i++)
+                {
+                    int n = PointInList(c.myPoints, list[i]);
+                    if(n != -1)
+                    {
+                        c.lines[j].PointByIndex(i, c.myPoints[n]);
+                        /*if(list.Count == 2)
+                        {
+                            if (i == 0)
+                                c.lines[j] = new Line(c.myPoints[n], list[1]);
+                            if (i == 1)
+                                c.lines[j] = new Line(list[0], c.myPoints[n]);
+                            c.myPoints.Add(list[0]);
+                            c.myPoints.Add(list[1]);
+                        }
+                        if(list.Count == 4)
+                        {
+                            if (i == 0)
+                                c.lines[j] = new Bezie(list[i], list[1], list[2], list[3]);
+                            if (i == 1)
+                                c.lines[j] = new Bezie(list[0], list[1], list[2], list[3]);
+                        }*/
+                    }
+                    foreach (MyPoint p in c.lines[j].GetPoints())
+                        c.myPoints.Add(p);
+                    //c.myPoints.Add(p);
+                    //PointInList(c.myPoints, p);
+                }
             }
             return c;
         }
@@ -106,6 +138,15 @@ namespace Task_6
             }
             p.Y = Convert.ToSingle(s);
             return p;
+        }
+        private int PointInList(List<MyPoint> l, MyPoint p)
+        {
+            for (int i = 0; i < l.Count; i++)
+            {
+                if (l[i].X == p.X && l[i].Y == p.Y)
+                    return i;
+            }
+            return -1;
         }
     }
 }

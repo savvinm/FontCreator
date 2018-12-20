@@ -83,16 +83,20 @@ namespace Task_6
 
         private void AddSymbolButton_Click(object sender, EventArgs e)
         {
-            SYmbolList.Items.Add("Symbol " + SymbolTextBox.Text[0]);
-            workSpace.AddSymbol(SymbolTextBox.Text[0]);
-            list.Add(new List<object>());
-            //ContourList.Items.Clear();
-            List<object> ob = new List<object>();
-           /* foreach (object o in ContourList.Items)
-               ob.Add(o);
-            list[SYmbolList.SelectedIndex] = s;
-            foreach (string s in list.Last())
-                ContourList.Items.Add(s);*/
+            if (SymbolTextBox.Text != "" && SymbolTextBox.Text != " ")
+            {
+                SYmbolList.Items.Add("Symbol " + SymbolTextBox.Text[0]);
+                workSpace.AddSymbol(SymbolTextBox.Text[0]);
+                list.Add(new List<object>());
+                //ContourList.Items.Clear();
+                List<object> ob = new List<object>();
+                SymbolTextBox.Clear();
+                /* foreach (object o in ContourList.Items)
+                    ob.Add(o);
+                 list[SYmbolList.SelectedIndex] = s;
+                 foreach (string s in list.Last())
+                     ContourList.Items.Add(s);*/
+            }
         }
 
         private void AddContourButton_Click(object sender, EventArgs e)
@@ -198,6 +202,8 @@ namespace Task_6
                     n++;
                 }*/
             }
+            SYmbolList.SelectedIndex = -1;
+            ContourList.Items.Clear();
             Invalidate();
         }
     }

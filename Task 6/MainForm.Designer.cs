@@ -127,7 +127,8 @@
             // 
             // SymbolTextBox
             // 
-            this.SymbolTextBox.Location = new System.Drawing.Point(772, 268);
+            this.SymbolTextBox.Location = new System.Drawing.Point(772, 269);
+            this.SymbolTextBox.MaxLength = 1;
             this.SymbolTextBox.Name = "SymbolTextBox";
             this.SymbolTextBox.Size = new System.Drawing.Size(120, 22);
             this.SymbolTextBox.TabIndex = 7;
@@ -192,21 +193,21 @@
             // newFontToolStripMenuItem
             // 
             this.newFontToolStripMenuItem.Name = "newFontToolStripMenuItem";
-            this.newFontToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.newFontToolStripMenuItem.Size = new System.Drawing.Size(150, 26);
             this.newFontToolStripMenuItem.Text = "New Font";
             this.newFontToolStripMenuItem.Click += new System.EventHandler(this.newFontToolStripMenuItem_Click);
             // 
             // saveFontToolStripMenuItem
             // 
             this.saveFontToolStripMenuItem.Name = "saveFontToolStripMenuItem";
-            this.saveFontToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.saveFontToolStripMenuItem.Size = new System.Drawing.Size(150, 26);
             this.saveFontToolStripMenuItem.Text = "Save Font";
             this.saveFontToolStripMenuItem.Click += new System.EventHandler(this.saveFontToolStripMenuItem_Click);
             // 
             // loadFontToolStripMenuItem
             // 
             this.loadFontToolStripMenuItem.Name = "loadFontToolStripMenuItem";
-            this.loadFontToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.loadFontToolStripMenuItem.Size = new System.Drawing.Size(150, 26);
             this.loadFontToolStripMenuItem.Text = "Load Font";
             this.loadFontToolStripMenuItem.Click += new System.EventHandler(this.loadFontToolStripMenuItem_Click);
             // 

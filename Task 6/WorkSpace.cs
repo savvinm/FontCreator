@@ -129,10 +129,13 @@ namespace Task_6
                 myPoints[n].X += dx;
                 myPoints[n].Y += dy;
             }*/
-            lastPoint.X += dx;
-            lastPoint.Y += dy;
-            lastPoint.Current = false;
-            currpoints.Clear();
+            if (lastPoint != null)
+            {
+                lastPoint.X += dx;
+                lastPoint.Y += dy;
+                lastPoint.Current = false;
+                currpoints.Clear();
+            }
         }
         public void PointIn(PointF p)
         {

@@ -22,6 +22,13 @@ namespace Task_6
         {
             return (P1 == null || P2 == null);
         }
+        public void PointByIndex(int n, MyPoint p)
+        {
+            if (n == 0)
+                P1 = p;
+            if (n == 1)
+                P2 = p;
+        }
         public List<MyPoint> GetPoints()
         {
             List<MyPoint> points = new List<MyPoint>();

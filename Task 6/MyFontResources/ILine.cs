@@ -15,5 +15,6 @@ namespace Task_6
         bool Check();
         void ToOnePT(float coef);
         List<MyPoint> GetPoints();
+        void PointByIndex(int n, MyPoint p);
     }
 }

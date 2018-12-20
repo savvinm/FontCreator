@@ -22,6 +22,17 @@ namespace Task_6
             P4 = p4;
             Current = false;
         }
+        public void PointByIndex(int n, MyPoint p)
+        {
+            if (n == 0)
+                P1 = p;
+            if (n == 1)
+                P2 = p;
+            if (n == 2)
+                P3 = p;
+            if (n == 3)
+                P4 = p;
+        }
         public List<MyPoint> GetPoints()
         {
             List<MyPoint> points = new List<MyPoint>();
