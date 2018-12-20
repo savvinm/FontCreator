@@ -123,8 +123,11 @@ namespace Task_6
         {
             if (n != -1)
             {
-                ContourList.Items.Clear();
+                /*ContourList.Items.Clear();
                 foreach (object ob in list[n])
+                    ContourList.Items.Add(ob);*/
+                ContourList.Items.Clear();
+                foreach (object ob in workSpace.ContourList(n))
                     ContourList.Items.Add(ob);
             }
         }
@@ -181,7 +184,11 @@ namespace Task_6
                     list.Add(new List<object>());
                     SYmbolList.Items.Add(o);
                 }
-                List<object> li = new List<object>();
+                for (int i = 0; i < SYmbolList.Items.Count; i++)
+                {
+                    LoadContourList(i);
+                }
+                /*List<object> li = new List<object>();
                 foreach (object o in l)
                 {
                     list[n] = new List<object>();
@@ -189,7 +196,7 @@ namespace Task_6
                     foreach (object ob in li)
                         list[n].Add(ob);
                     n++;
-                }
+                }*/
             }
             Invalidate();
         }

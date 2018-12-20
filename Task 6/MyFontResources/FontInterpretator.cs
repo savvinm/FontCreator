@@ -25,7 +25,7 @@ namespace Task_6
             {
                 pos += 4;
                 s.contours.Add(ContourFromString(str, ref pos));
-                if (pos == str.Length)
+                if (pos >= str.Length)
                     break;
                 while (str[pos] == ' ')
                     pos++;
@@ -41,10 +41,15 @@ namespace Task_6
             {
                 pos += 3;
                 c.lines.Add(LineFromString(str, ref pos));
-                if (pos == str.Length)
+                if (pos >= str.Length)
                     break;
                 while (str[pos] == ' ')
                     pos++;
+            }
+            foreach(ILine l in c.lines)
+            {
+                foreach (MyPoint p in l.GetPoints())
+                    c.myPoints.Add(p);
             }
             return c;
         }
@@ -59,9 +64,9 @@ namespace Task_6
                     break;
                 myPoints.Add(PointFromString(str, ref pos));
                 pos++;
-                if (pos == str.Length)
+                if (pos >= str.Length)
                     break;
-                while (str[pos] == ' ' && pos <= str.Length)
+                while (str[pos] == ' ' && pos < str.Length - 1)
                     pos++;
             }
             if (myPoints.Count == 2)
@@ -77,7 +82,7 @@ namespace Task_6
             string s = "";
             while (str[pos] == ' ')
                 pos++;
-            if (pos == str.Length)
+            if (pos == str.Length - 1)
                 return null;
             while(str[pos] != ',' && str[pos] != ' ')
             {
@@ -89,12 +94,15 @@ namespace Task_6
             pos++;
             while (str[pos] == ' ')
                 pos++;
-            if (pos == str.Length)
+            if (pos == str.Length - 1)
                 return null;
             while (str[pos] != ',' && str[pos] != ' ')
             {
+                
                 s += str[pos];
                 pos++;
+                if (pos == str.Length)
+                    break;
             }
             p.Y = Convert.ToSingle(s);
             return p;

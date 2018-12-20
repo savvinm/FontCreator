@@ -14,5 +14,6 @@ namespace Task_6
         string ToString();
         bool Check();
         void ToOnePT(float coef);
+        List<MyPoint> GetPoints();
     }
 }

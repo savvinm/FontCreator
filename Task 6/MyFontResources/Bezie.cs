@@ -22,6 +22,15 @@ namespace Task_6
             P4 = p4;
             Current = false;
         }
+        public List<MyPoint> GetPoints()
+        {
+            List<MyPoint> points = new List<MyPoint>();
+            points.Add(P1);
+            points.Add(P2);
+            points.Add(P3);
+            points.Add(P4);
+            return points;
+        }
         private PointF B(float t)
         {
             float c0 = (1 - t) * (1 - t) * (1 - t);

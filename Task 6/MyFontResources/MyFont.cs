@@ -19,6 +19,14 @@ namespace Task_6
         {
             symbols = new List<Symbol>();
         }
+        public MyFont(MyFont f)
+        {
+            symbols = new List<Symbol>();
+            Symbol[] s = new Symbol[f.symbols.Count];
+            f.symbols.CopyTo(s);
+            foreach (Symbol sy in s)
+                symbols.Add(sy);
+        }
         public void ToOnePT(float coef)
         {
             foreach (Symbol s in symbols)

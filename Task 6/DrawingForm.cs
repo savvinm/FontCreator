@@ -32,7 +32,7 @@ namespace Task_6
         private void DrawingForm_Paint(object sender, PaintEventArgs e)
         {
             if (draw)
-                fontDrawer.DrawString(e.Graphics, mainForm.workSpace.font, 100, textBox1.Text, 50, 100);
+                fontDrawer.DrawString(e.Graphics, mainForm.workSpace.font, 30, textBox1.Text, 50, 100);
         }
     }
 }

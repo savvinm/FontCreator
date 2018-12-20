@@ -22,6 +22,13 @@ namespace Task_6
         {
             return (P1 == null || P2 == null);
         }
+        public List<MyPoint> GetPoints()
+        {
+            List<MyPoint> points = new List<MyPoint>();
+            points.Add(P1);
+            points.Add(P2);
+            return points;
+        }
         public void ToOnePT(float coef)
         {
             P1.X = P1.X * coef;
