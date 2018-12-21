@@ -21,6 +21,24 @@ namespace Task_6
             lines = new List<ILine>();
             myPoints = new List<MyPoint>();
         }
+        public List<MyPoint> GetPoints()
+        {
+            List<MyPoint> myPoints = new List<MyPoint>();
+            foreach (ILine l in lines)
+                foreach (MyPoint p in l.GetPoints())
+                    myPoints.Add(p);
+            for (int i = 0; i < myPoints.Count; i++)
+            {
+                for (int j = i + 1; j < myPoints.Count;)
+                {
+                    if (myPoints[i].X == myPoints[j].X && myPoints[i].Y == myPoints[j].Y)
+                        myPoints.RemoveAt(j);
+                    else
+                        j++;
+                }
+            }
+            return myPoints;
+        }
         public void Draw(Graphics g, bool allix, int pt, float x, float y, ScreenConverter sc)
         {
             foreach (ILine l in lines)

@@ -27,6 +27,7 @@ namespace Task_6
                     if (sym.symbol == c)
                     {
                         sym.Draw(g, pt, x, y);
+                        x += (float)sym.GetWidth()*1.05f * pt;
                         break;
                     }
                 }

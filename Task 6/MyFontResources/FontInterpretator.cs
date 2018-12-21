@@ -12,7 +12,6 @@ namespace Task_6
         {
             Symbol s = new Symbol();
             int pos = 0;
-            int n = 0;
             while (str[pos] == ' ')
                 pos++;
             s.symbol = str[pos];
@@ -46,47 +45,55 @@ namespace Task_6
                 while (str[pos] == ' ')
                     pos++;
             }
-            foreach(ILine l in c.lines)
-            {
-                foreach (MyPoint p in l.GetPoints())
-                    c.myPoints.Add(p);
-            }
-            /*for (int j = 0; j < c.lines.Count; j++)
-            {
-                List<MyPoint> list = c.lines[j].GetPoints();
-                for (int i = 0; i < list.Count; i++)
-                {
-                    int n = PointInList(c.myPoints, list[i]);
-                    if(n != -1)
-                    {
-                        c.lines[j].PointByIndex(i, c.myPoints[n]);
-                        /*if(list.Count == 2)
-                        {
-                            if (i == 0)
-                                c.lines[j] = new Line(c.myPoints[n], list[1]);
-                            if (i == 1)
-                                c.lines[j] = new Line(list[0], c.myPoints[n]);
-                            c.myPoints.Add(list[0]);
-                            c.myPoints.Add(list[1]);
-                        }
-                        if(list.Count == 4)
-                        {
-                            if (i == 0)
-                                c.lines[j] = new Bezie(list[i], list[1], list[2], list[3]);
-                            if (i == 1)
-                                c.lines[j] = new Bezie(list[0], list[1], list[2], list[3]);
-                        }
-                        foreach (MyPoint p in c.lines[j].GetPoints())
-                            c.myPoints.Add(p);
-                        break;
-                    }
-                    foreach (MyPoint p in c.lines[j].GetPoints())
-                        c.myPoints.Add(p);
-                    //c.myPoints.Add(p);
-                    //PointInList(c.myPoints, p);
-                }
-            }*/
+            List<MyPoint> points = c.GetPoints();
+            List<ILine> L = c.lines;
+            List<ILine> ln = new List<ILine>();
+            foreach (ILine l in L)
+                ln.Add(LineOnPoints(l, points));
+            c.myPoints = points;
+            c.lines = ln;
             return c;
+        }
+        private ILine LineOnPoints(ILine l, List<MyPoint> points)
+        {
+            List<MyPoint> pnt = l.GetPoints();
+            List<MyPoint> myPoints = new List<MyPoint>();
+            for (int i = 0; i < pnt.Count; i++)
+            {
+                foreach (MyPoint p in points)
+                    if (pnt[i].X == p.X && pnt[i].Y == p.Y)
+                        myPoints.Add(p);
+            }
+            if (pnt.Count == 2)
+                return new Line(myPoints[0], myPoints[1]);
+            if (pnt.Count == 4)
+                return new Bezie(myPoints[0], myPoints[1], myPoints[2], myPoints[3]);
+            else
+                throw new Exception("");
+        }
+        private List<MyPoint> PointsFromString(string str, ref int pos)
+        {
+            List<MyPoint> myPoints = new List<MyPoint>();
+            while (str[pos] == ' ')
+                pos++;
+            while (str[pos] != 'l' && str[pos] != 'c')
+            {
+                if (pos == str.Length)
+                    break;
+                myPoints.Add(PointFromString(str, ref pos));
+                pos++;
+                if (pos >= str.Length)
+                    break;
+                while (str[pos] == ' ' && pos < str.Length - 1)
+                    pos++;
+            }
+            /*if (myPoints.Count == 2)
+                return new Line(myPoints[0], myPoints[1]);
+            if (myPoints.Count == 4)
+                return new Bezie(myPoints[0], myPoints[1], myPoints[2], myPoints[3]);
+            else
+                throw new Exception("");*/
+            return myPoints;
         }
         private ILine LineFromString(string str, ref int pos)
         {

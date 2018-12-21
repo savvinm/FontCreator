@@ -36,6 +36,15 @@ namespace Task_6
             points.Add(P2);
             return points;
         }
+        public bool EqualTo(ILine l)
+        {
+            List<MyPoint> p = l.GetPoints();
+            if (p.Count != 2)
+                return false;
+            if (p[0].X == P1.X && p[0].Y == P1.Y && p[1].X == P2.X && p[1].Y == P2.Y)
+                return true;
+            return false;
+        }
         public void Draw(Graphics g, bool allix, int pt, float x, float y, ScreenConverter sc)
         {
             if (Current)

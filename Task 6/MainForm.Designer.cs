@@ -49,6 +49,8 @@
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.CoordTextBox = new System.Windows.Forms.CheckBox();
+            this.DeleteContourButton = new System.Windows.Forms.Button();
+            this.DeleteSymbolButton = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -98,7 +100,7 @@
             // 
             // AddSymbolButton
             // 
-            this.AddSymbolButton.Location = new System.Drawing.Point(772, 222);
+            this.AddSymbolButton.Location = new System.Drawing.Point(772, 207);
             this.AddSymbolButton.Name = "AddSymbolButton";
             this.AddSymbolButton.Size = new System.Drawing.Size(120, 40);
             this.AddSymbolButton.TabIndex = 4;
@@ -246,11 +248,33 @@
             this.CoordTextBox.UseVisualStyleBackColor = true;
             this.CoordTextBox.CheckedChanged += new System.EventHandler(this.CoordTextBox_CheckedChanged);
             // 
+            // DeleteContourButton
+            // 
+            this.DeleteContourButton.Location = new System.Drawing.Point(1056, 114);
+            this.DeleteContourButton.Name = "DeleteContourButton";
+            this.DeleteContourButton.Size = new System.Drawing.Size(80, 45);
+            this.DeleteContourButton.TabIndex = 15;
+            this.DeleteContourButton.Text = "Delete contour";
+            this.DeleteContourButton.UseVisualStyleBackColor = true;
+            this.DeleteContourButton.Click += new System.EventHandler(this.DeleteContourButton_Click);
+            // 
+            // DeleteSymbolButton
+            // 
+            this.DeleteSymbolButton.Location = new System.Drawing.Point(686, 114);
+            this.DeleteSymbolButton.Name = "DeleteSymbolButton";
+            this.DeleteSymbolButton.Size = new System.Drawing.Size(80, 45);
+            this.DeleteSymbolButton.TabIndex = 16;
+            this.DeleteSymbolButton.Text = "Delete Symbol";
+            this.DeleteSymbolButton.UseVisualStyleBackColor = true;
+            this.DeleteSymbolButton.Click += new System.EventHandler(this.DeleteSymbolButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1136, 647);
+            this.Controls.Add(this.DeleteSymbolButton);
+            this.Controls.Add(this.DeleteContourButton);
             this.Controls.Add(this.CoordTextBox);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.AllSymbolCheckBox);
@@ -297,6 +321,8 @@
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.CheckBox CoordTextBox;
+        private System.Windows.Forms.Button DeleteContourButton;
+        private System.Windows.Forms.Button DeleteSymbolButton;
     }
 }
 

@@ -33,6 +33,16 @@ namespace Task_6
             if (n == 3)
                 P4 = p;
         }
+        public bool EqualTo(ILine l)
+        {
+            List<MyPoint> p = l.GetPoints();
+            if (p.Count != 4)
+                return false;
+            if (p[0].X == P1.X && p[0].Y == P1.Y && p[1].X == P2.X && p[1].Y == P2.Y
+                && p[2].X == P3.X && p[2].Y == P3.Y && p[3].X == P4.X && p[3].Y == P4.Y)
+                return true;
+            return false;
+        }
         public void Draw(Graphics g, bool allix, int pt, float x, float y, ScreenConverter sc)
         {
             float t = 0f;

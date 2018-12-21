@@ -25,6 +25,21 @@ namespace Task_6
         {
             contours = new List<Contour>();
         }
+        public double GetWidth()
+        {
+            double xmin = 0, xmax = 0;
+            foreach(Contour c in contours)
+                foreach(ILine l in c.lines)
+                    foreach(MyPoint p in l.GetPoints())
+                    {
+                        if (p.X > xmax)
+                            xmax = p.X;
+                        if (p.X < xmin)
+                            xmin = p.X;
+
+                    }
+            return Math.Abs(xmax - xmin);
+        }
         public void Draw(Graphics g, int pt, float x, float y, ScreenConverter sc)
         {
             foreach (Contour c in contours)

@@ -114,10 +114,6 @@ namespace Task_6
             workSpace.ChooseContour(ContourList.SelectedIndex);
             WorkPanel.Invalidate();
         }
-        private void LoadSymbolList()
-        {
-            SYmbolList.Items.Clear();
-        }
         private void SYmbolList_SelectedIndexChanged(object sender, EventArgs e)
         {
             workSpace.ChooseSymbol(SYmbolList.SelectedIndex);
@@ -214,6 +210,30 @@ namespace Task_6
         {
             workSpace.CheckCoord(CoordTextBox.Checked);
             WorkPanel.Invalidate();
+        }
+
+        private void DeleteSymbolButton_Click(object sender, EventArgs e)
+        {
+            if (SYmbolList.SelectedIndex != -1)
+            {
+                workSpace.DeleteSymbol(SYmbolList.SelectedIndex);
+                SYmbolList.Items.RemoveAt(SYmbolList.SelectedIndex);
+                SYmbolList.SelectedIndex = -1;
+                ContourList.Items.Clear();
+            }
+            Invalidate();
+        }
+
+        private void DeleteContourButton_Click(object sender, EventArgs e)
+        {
+            if (ContourList.SelectedIndex != -1)
+            {
+                workSpace.DeleteContour(ContourList.SelectedIndex);
+                ContourList.SelectedIndex = -1;
+                ContourList.Items.Clear();
+                LoadContourList(SYmbolList.SelectedIndex);
+            }
+            Invalidate();
         }
     }
 }

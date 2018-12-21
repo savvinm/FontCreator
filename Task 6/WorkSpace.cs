@@ -101,6 +101,7 @@ namespace Task_6
                 lines = curSymbol.contours[n].lines;
                 curContour = curSymbol.contours[n];
                 myPoints = curContour.myPoints;
+                //CheckPoints();
             }
         }
         public void AddSymbol(char s)
@@ -168,6 +169,22 @@ namespace Task_6
             }
             
         }
+        public void DeleteSymbol(int n)
+        {
+            if (n!= -1 && n < font.symbols.Count)
+            {
+                font.symbols.RemoveAt(n);
+                curSymbol = null;
+            }
+        }
+        public void DeleteContour(int n)
+        {
+            if (n!= -1 && n < curSymbol.contours.Count)
+            {
+                curSymbol.contours.RemoveAt(n);
+                curContour = null;       
+            }
+        }
         public void DeletePoints()
         {
             currpoints.Clear();
@@ -175,16 +192,44 @@ namespace Task_6
             {
                 if (myPoints[i].Current)
                 {
+                    for (int j = 0; j < lines.Count; j++)
+                    {
+                        foreach (MyPoint p in lines[j].GetPoints())
+                        {
+                            if (p == myPoints[i])
+                            {
+                                lines.RemoveAt(j);
+                                j--;
+                            }
+                        }
+                    }
                     myPoints.RemoveAt(i);
                     i--;
                 }
             }
-            foreach(ILine l in lines)
+           // CheckPoints();
+            /*foreach(ILine l in lines)
             {
                 if (l.Check())
                 {
                     lines.Remove(l);
                 }
+            }*/
+        }
+        public void CheckPoints()
+        {
+            for(int i = 0; i < myPoints.Count; )
+            {
+                for(int j = i; j < myPoints.Count;)
+                {
+                    if(myPoints[i] == myPoints[j])
+                    {
+                        myPoints[i] = myPoints[j];
+                        myPoints.RemoveAt(j);
+                    }
+                    j++;
+                }
+                i++;
             }
         }
         public void AddILine(MyPoint p1, MyPoint p2)
