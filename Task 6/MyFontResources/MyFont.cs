@@ -19,18 +19,50 @@ namespace Task_6
         {
             symbols = new List<Symbol>();
         }
+        public MyFont(string filename)
+        {
+            FontInterpretator fi = new FontInterpretator();
+            string line = "";
+            symbols = new List<Symbol>();
+            StreamReader sr = new StreamReader(filename);
+            while (true)
+            {
+                line = sr.ReadLine();
+                if (line == null)
+                    break;
+                symbols.Add(fi.SymbolFromString(line));
+            }
+            sr.Close();
+        }
         public void DrawString(Graphics g, string s, int pt, float x, float y)
         {
+            double width = symbols[0].GetWidth();
             foreach (Char c in s)
+            {
                 foreach (Symbol sym in symbols)
                 {
                     if (sym.symbol == c)
                     {
                         sym.Draw(g, pt, x, y);
-                        x += (float)sym.GetWidth()*1.05f * pt;
                         break;
                     }
                 }
+                x += (float)(width * 1.1f * pt);
+            }
+        }
+        public void SortSymbols()
+        {
+            for (int i = 1; i < symbols.Count; i++)
+            {
+                Symbol cur = symbols[i];
+                int j = i;
+                while (j > 0 && cur.symbol < symbols[j - 1].symbol)
+                {
+                    symbols[j] = symbols[j - 1];
+                    j--;
+                }
+                symbols[j] = cur;
+            }
         }
         public void DrawSymbol(Graphics g, char c, bool allix, bool coord, ScreenConverter sc)
         {

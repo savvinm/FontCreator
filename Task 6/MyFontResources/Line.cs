@@ -18,10 +18,6 @@ namespace Task_6
             P2 = p2;
             Current = false;
         }
-        public bool Check()
-        {
-            return (P1 == null || P2 == null);
-        }
         public void PointByIndex(int n, MyPoint p)
         {
             if (n == 0)

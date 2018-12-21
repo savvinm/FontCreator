@@ -45,20 +45,6 @@ namespace Task_6
             else
                 g.DrawEllipse(Pens.Black, sc.II(X) - 3, sc.JJ(Y) - 3, 6, 6);
         }
-        /*public void Draw(Graphics g, bool allix, int pt, float x, float y)
-        {
-            if (!allix)
-                return;
-            string s = "(" + X + ";" + Y + ")";
-            //Font f = new Font("Arial", 10);
-            Brush b = new SolidBrush(Color.FromArgb(60, Color.Black));
-            //f.
-            g.DrawString(s, new Font("Courier", 8), b, (float)(X * pt + 4), (float)(Y * pt - 1));
-            if (Current)
-                g.DrawEllipse(Pens.Red, x + 3 - 3, y + Y - 3, 6, 6);
-            else
-                g.DrawEllipse(Pens.Black, sc.II(x + X) - 3, sc.JJ(y + Y) - 3, 6, 6);
-        }*/
     }
 }
 

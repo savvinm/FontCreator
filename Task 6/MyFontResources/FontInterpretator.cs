@@ -149,14 +149,5 @@ namespace Task_6
             p.Y = Convert.ToDouble(s);
             return p;
         }
-        private int PointInList(List<MyPoint> l, MyPoint p)
-        {
-            for (int i = 0; i < l.Count; i++)
-            {
-                if (l[i].X == p.X && l[i].Y == p.Y)
-                    return i;
-            }
-            return -1;
-        }
     }
 }

@@ -38,11 +38,12 @@ namespace Task_6
         }
         public void LoadFont(string filename)
         {
-            font = font.Load(filename);
+            font = new MyFont(filename);
             curContour = null;
             currpoints.Clear();
             curSymbol = null;
             myPoints = null;
+            font.SortSymbols();
         }
         public List<object> SymbolList()
         {
@@ -65,7 +66,7 @@ namespace Task_6
             }
             return list;
         }
-        public void DrawLines(Graphics g)
+        private void DrawLines(Graphics g)
         {
             Pen p = new Pen(Color.Silver);
             p.Color = Color.FromArgb(50, Color.Black);
@@ -101,12 +102,12 @@ namespace Task_6
                 lines = curSymbol.contours[n].lines;
                 curContour = curSymbol.contours[n];
                 myPoints = curContour.myPoints;
-                //CheckPoints();
             }
         }
         public void AddSymbol(char s)
         {
             font.symbols.Add(new Symbol(s));
+            font.SortSymbols();
         }
         public void AddContour()
         {
@@ -124,22 +125,14 @@ namespace Task_6
         {
             coord = all;
         }
-        public void AddPoint(PointF p)
+        public void UpdatePoint(float dx, float dy, ScreenConverter sc)
         {
-            //points.Add(p);
-        }
-        public void UpdatePoint(PointF p, float dx, float dy, ScreenConverter sc)
-        {
-            /*int n = SearchMyPoint(p);
-            if (n != -1)
-            {
-                myPoints[n].X += dx;
-                myPoints[n].Y += dy;
-            }*/
             if (lastPoint != null)
             {
-                lastPoint.X += sc.LR((int)dx);
-                lastPoint.Y -= sc.LR((int)dy);
+                if (!(sc.II(lastPoint.X) + dx > Width - 4) && sc.II(lastPoint.X) + dx > 0)
+                    lastPoint.X += sc.LR((int)dx);
+                if (!(sc.JJ(lastPoint.Y) + dy > Height - 4) && sc.JJ(lastPoint.Y) + dy > 0)
+                    lastPoint.Y -= sc.LR((int)dy);
                 lastPoint.Current = false;
                 currpoints.Clear();
             }
@@ -216,27 +209,11 @@ namespace Task_6
                 }
             }*/
         }
-        public void CheckPoints()
-        {
-            for(int i = 0; i < myPoints.Count; )
-            {
-                for(int j = i; j < myPoints.Count;)
-                {
-                    if(myPoints[i] == myPoints[j])
-                    {
-                        myPoints[i] = myPoints[j];
-                        myPoints.RemoveAt(j);
-                    }
-                    j++;
-                }
-                i++;
-            }
-        }
-        public void AddILine(MyPoint p1, MyPoint p2)
+        private void AddILine(MyPoint p1, MyPoint p2)
         {
             lines.Add(new Line(p1, p2));
         }
-        public int SearchMyPoint(PointF p, ScreenConverter sc)
+        private int SearchMyPoint(PointF p, ScreenConverter sc)
         {
             for (int i = 0; i < myPoints.Count; i++)
             {
@@ -246,19 +223,15 @@ namespace Task_6
             }
             return -1;
         }
-        public void AddILine(MyPoint p1, MyPoint p2, MyPoint p3, MyPoint p4)
+        private void AddILine(MyPoint p1, MyPoint p2, MyPoint p3, MyPoint p4)
         {
             lines.Add(new Bezie(p1, p2, p3, p4));
         }
-        public void AddILine()
+        public void AddLine()
         {
             if (currpoints.Count == 2)
             {
                 AddILine(currpoints[0], currpoints[1]);
-            }
-            if (currpoints.Count == 4)
-            {
-                AddILine(currpoints[0], currpoints[1], currpoints[2], currpoints[3]);
             }
             else
             {
@@ -271,16 +244,26 @@ namespace Task_6
                 p.Current = false;
             currpoints.Clear();
         }
-        public void DrawContour(Graphics g, Contour c, ScreenConverter sc)
+        public void AddCurve()
+        {
+            if (currpoints.Count == 4)
+            {
+                AddILine(currpoints[0], currpoints[1], currpoints[2], currpoints[3]);
+            }
+            foreach (MyPoint p in myPoints)
+                p.Current = false;
+            currpoints.Clear();
+        }
+        private void DrawContour(Graphics g, Contour c, ScreenConverter sc)
         {
             c.Draw(g, allix, coord, sc);
         }
-        public void DrawContours(Graphics g, List<Contour> c, ScreenConverter sc)
+        private void DrawContours(Graphics g, List<Contour> c, ScreenConverter sc)
         {
             foreach (Contour co in c)
                 co.Draw(g, allix, coord, sc);
         }
-        public void DrawSymbol(Graphics g, ScreenConverter sc)
+        private void DrawSymbol(Graphics g, ScreenConverter sc)
         {
             if (curSymbol != null && curSymbol.contours != null)
             {
@@ -288,7 +271,7 @@ namespace Task_6
                     c.Draw(g, allix, coord, sc);
             }
         }
-        public void DrawCurContour(Graphics g, ScreenConverter sc)
+        private void DrawCurContour(Graphics g, ScreenConverter sc)
         {
             if (curContour != null)
             {

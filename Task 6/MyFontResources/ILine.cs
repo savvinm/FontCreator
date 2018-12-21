@@ -13,7 +13,6 @@ namespace Task_6
         void Draw(Graphics g, bool allix, int pt, float x, float y);
         void Draw(Graphics g, bool allix, int pt, float x, float y, ScreenConverter sc);
         string ToString();
-        bool Check();
         bool EqualTo(ILine l);
         List<MyPoint> GetPoints();
         void PointByIndex(int n, MyPoint p);

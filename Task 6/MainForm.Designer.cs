@@ -51,12 +51,14 @@
             this.CoordTextBox = new System.Windows.Forms.CheckBox();
             this.DeleteContourButton = new System.Windows.Forms.Button();
             this.DeleteSymbolButton = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.menuStrip1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // AddLineButton
             // 
-            this.AddLineButton.Location = new System.Drawing.Point(772, 396);
+            this.AddLineButton.Location = new System.Drawing.Point(137, 296);
             this.AddLineButton.Name = "AddLineButton";
             this.AddLineButton.Size = new System.Drawing.Size(80, 45);
             this.AddLineButton.TabIndex = 0;
@@ -66,7 +68,7 @@
             // 
             // AddCurveButton
             // 
-            this.AddCurveButton.Location = new System.Drawing.Point(881, 396);
+            this.AddCurveButton.Location = new System.Drawing.Point(137, 347);
             this.AddCurveButton.Name = "AddCurveButton";
             this.AddCurveButton.Size = new System.Drawing.Size(80, 45);
             this.AddCurveButton.TabIndex = 1;
@@ -77,7 +79,7 @@
             // WorkPanel
             // 
             this.WorkPanel.BackColor = System.Drawing.Color.Azure;
-            this.WorkPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.WorkPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.WorkPanel.Cursor = System.Windows.Forms.Cursors.Default;
             this.WorkPanel.Location = new System.Drawing.Point(167, 69);
             this.WorkPanel.Name = "WorkPanel";
@@ -90,7 +92,7 @@
             // 
             // DeleteButton
             // 
-            this.DeleteButton.Location = new System.Drawing.Point(772, 459);
+            this.DeleteButton.Location = new System.Drawing.Point(257, 296);
             this.DeleteButton.Name = "DeleteButton";
             this.DeleteButton.Size = new System.Drawing.Size(80, 45);
             this.DeleteButton.TabIndex = 3;
@@ -100,7 +102,7 @@
             // 
             // AddSymbolButton
             // 
-            this.AddSymbolButton.Location = new System.Drawing.Point(772, 207);
+            this.AddSymbolButton.Location = new System.Drawing.Point(97, 180);
             this.AddSymbolButton.Name = "AddSymbolButton";
             this.AddSymbolButton.Size = new System.Drawing.Size(120, 40);
             this.AddSymbolButton.TabIndex = 4;
@@ -110,7 +112,7 @@
             // 
             // AddContourButton
             // 
-            this.AddContourButton.Location = new System.Drawing.Point(928, 222);
+            this.AddContourButton.Location = new System.Drawing.Point(257, 180);
             this.AddContourButton.Name = "AddContourButton";
             this.AddContourButton.Size = new System.Drawing.Size(120, 40);
             this.AddContourButton.TabIndex = 5;
@@ -122,7 +124,7 @@
             // 
             this.SYmbolList.FormattingEnabled = true;
             this.SYmbolList.ItemHeight = 16;
-            this.SYmbolList.Location = new System.Drawing.Point(772, 69);
+            this.SYmbolList.Location = new System.Drawing.Point(97, 42);
             this.SYmbolList.Name = "SYmbolList";
             this.SYmbolList.Size = new System.Drawing.Size(120, 132);
             this.SYmbolList.TabIndex = 6;
@@ -130,7 +132,7 @@
             // 
             // SymbolTextBox
             // 
-            this.SymbolTextBox.Location = new System.Drawing.Point(772, 269);
+            this.SymbolTextBox.Location = new System.Drawing.Point(97, 226);
             this.SymbolTextBox.MaxLength = 1;
             this.SymbolTextBox.Name = "SymbolTextBox";
             this.SymbolTextBox.Size = new System.Drawing.Size(120, 22);
@@ -141,7 +143,7 @@
             // 
             this.ContourList.FormattingEnabled = true;
             this.ContourList.ItemHeight = 16;
-            this.ContourList.Location = new System.Drawing.Point(928, 69);
+            this.ContourList.Location = new System.Drawing.Point(257, 42);
             this.ContourList.Name = "ContourList";
             this.ContourList.Size = new System.Drawing.Size(120, 132);
             this.ContourList.TabIndex = 8;
@@ -152,7 +154,7 @@
             this.AllixCheckBox.AutoSize = true;
             this.AllixCheckBox.Checked = true;
             this.AllixCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.AllixCheckBox.Location = new System.Drawing.Point(881, 456);
+            this.AllixCheckBox.Location = new System.Drawing.Point(257, 347);
             this.AllixCheckBox.Name = "AllixCheckBox";
             this.AllixCheckBox.Size = new System.Drawing.Size(143, 21);
             this.AllixCheckBox.TabIndex = 10;
@@ -163,7 +165,7 @@
             // AllSymbolCheckBox
             // 
             this.AllSymbolCheckBox.AutoSize = true;
-            this.AllSymbolCheckBox.Location = new System.Drawing.Point(881, 483);
+            this.AllSymbolCheckBox.Location = new System.Drawing.Point(257, 374);
             this.AllSymbolCheckBox.Name = "AllSymbolCheckBox";
             this.AllSymbolCheckBox.Size = new System.Drawing.Size(93, 21);
             this.AllSymbolCheckBox.TabIndex = 11;
@@ -179,7 +181,7 @@
             this.exitToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1136, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1152, 28);
             this.menuStrip1.TabIndex = 12;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -223,11 +225,11 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(948, 318);
+            this.button1.Location = new System.Drawing.Point(310, 468);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(153, 42);
             this.button1.TabIndex = 13;
-            this.button1.Text = "button1";
+            this.button1.Text = "Open drawing form";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -240,7 +242,7 @@
             this.CoordTextBox.AutoSize = true;
             this.CoordTextBox.Checked = true;
             this.CoordTextBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.CoordTextBox.Location = new System.Drawing.Point(881, 511);
+            this.CoordTextBox.Location = new System.Drawing.Point(257, 401);
             this.CoordTextBox.Name = "CoordTextBox";
             this.CoordTextBox.Size = new System.Drawing.Size(106, 21);
             this.CoordTextBox.TabIndex = 14;
@@ -250,7 +252,7 @@
             // 
             // DeleteContourButton
             // 
-            this.DeleteContourButton.Location = new System.Drawing.Point(1056, 114);
+            this.DeleteContourButton.Location = new System.Drawing.Point(383, 103);
             this.DeleteContourButton.Name = "DeleteContourButton";
             this.DeleteContourButton.Size = new System.Drawing.Size(80, 45);
             this.DeleteContourButton.TabIndex = 15;
@@ -260,7 +262,7 @@
             // 
             // DeleteSymbolButton
             // 
-            this.DeleteSymbolButton.Location = new System.Drawing.Point(686, 114);
+            this.DeleteSymbolButton.Location = new System.Drawing.Point(11, 103);
             this.DeleteSymbolButton.Name = "DeleteSymbolButton";
             this.DeleteSymbolButton.Size = new System.Drawing.Size(80, 45);
             this.DeleteSymbolButton.TabIndex = 16;
@@ -268,31 +270,43 @@
             this.DeleteSymbolButton.UseVisualStyleBackColor = true;
             this.DeleteSymbolButton.Click += new System.EventHandler(this.DeleteSymbolButton_Click);
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.DeleteContourButton);
+            this.groupBox1.Controls.Add(this.CoordTextBox);
+            this.groupBox1.Controls.Add(this.DeleteSymbolButton);
+            this.groupBox1.Controls.Add(this.button1);
+            this.groupBox1.Controls.Add(this.AllSymbolCheckBox);
+            this.groupBox1.Controls.Add(this.SYmbolList);
+            this.groupBox1.Controls.Add(this.AllixCheckBox);
+            this.groupBox1.Controls.Add(this.ContourList);
+            this.groupBox1.Controls.Add(this.DeleteButton);
+            this.groupBox1.Controls.Add(this.AddCurveButton);
+            this.groupBox1.Controls.Add(this.AddContourButton);
+            this.groupBox1.Controls.Add(this.SymbolTextBox);
+            this.groupBox1.Controls.Add(this.AddSymbolButton);
+            this.groupBox1.Controls.Add(this.AddLineButton);
+            this.groupBox1.Location = new System.Drawing.Point(675, 69);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(465, 514);
+            this.groupBox1.TabIndex = 17;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Font redactor";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1136, 647);
-            this.Controls.Add(this.DeleteSymbolButton);
-            this.Controls.Add(this.DeleteContourButton);
-            this.Controls.Add(this.CoordTextBox);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.AllSymbolCheckBox);
-            this.Controls.Add(this.AllixCheckBox);
-            this.Controls.Add(this.ContourList);
-            this.Controls.Add(this.SymbolTextBox);
-            this.Controls.Add(this.SYmbolList);
-            this.Controls.Add(this.AddContourButton);
-            this.Controls.Add(this.AddSymbolButton);
-            this.Controls.Add(this.DeleteButton);
+            this.ClientSize = new System.Drawing.Size(1152, 647);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.WorkPanel);
-            this.Controls.Add(this.AddCurveButton);
-            this.Controls.Add(this.AddLineButton);
             this.Controls.Add(this.menuStrip1);
             this.Name = "MainForm";
             this.Text = "MyFont";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -323,6 +337,7 @@
         private System.Windows.Forms.CheckBox CoordTextBox;
         private System.Windows.Forms.Button DeleteContourButton;
         private System.Windows.Forms.Button DeleteSymbolButton;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }
 

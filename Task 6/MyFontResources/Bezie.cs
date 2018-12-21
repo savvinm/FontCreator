@@ -102,10 +102,6 @@ namespace Task_6
             double Y = c0 * (-P1.Y * pt + y) + c1 * (-P2.Y * pt + y) + c2 * (-P3.Y * pt + y) + c3 * (-P4.Y * pt + y);
             return new PointF((float)X, (float)Y);
         }
-        public bool Check()
-        {
-            return (P2 == null || P1 == null || P3 == null || P4 == null);
-        }
         public void Draw(Graphics g, bool allix, ScreenConverter sc)
         {
             float t = 0f;

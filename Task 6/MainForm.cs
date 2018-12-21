@@ -15,7 +15,6 @@ namespace Task_6
     {
         public WorkSpace workSpace;
         Point last;
-        List<List<object>> list;
         ScreenConverter sc;
         public MainForm()
         {
@@ -23,13 +22,12 @@ namespace Task_6
             typeof(Panel).InvokeMember("DoubleBuffered", BindingFlags.SetProperty
            | BindingFlags.Instance | BindingFlags.NonPublic, null, WorkPanel, new object[] { true });
             workSpace = new WorkSpace(WorkPanel.Width, WorkPanel.Height);
-            list = new List<List<object>>();
             sc = new ScreenConverter(-0.5, -0.5, 1, 1, WorkPanel.Width, WorkPanel.Height);
             System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
         }
         private void AddLineButton_Click(object sender, EventArgs e)
         {
-            workSpace.AddILine();
+            workSpace.AddLine();
             WorkPanel.Invalidate();
         }
 
@@ -55,7 +53,7 @@ namespace Task_6
 
         private void AddCurveButton_Click(object sender, EventArgs e)
         {
-            workSpace.AddILine();
+            workSpace.AddCurve();
             WorkPanel.Invalidate();
         }
 
@@ -65,7 +63,7 @@ namespace Task_6
             {
                 float dx = e.Location.X - last.X;
                 float dy = e.Location.Y - last.Y;
-                workSpace.UpdatePoint(e.Location, dx, dy, sc);
+                workSpace.UpdatePoint(dx, dy, sc);
                 WorkPanel.Invalidate();
                 last = e.Location;
             }
@@ -88,25 +86,19 @@ namespace Task_6
         {
             if (SymbolTextBox.Text != "" && SymbolTextBox.Text != " ")
             {
-                SYmbolList.Items.Add("Symbol " + SymbolTextBox.Text[0]);
                 workSpace.AddSymbol(SymbolTextBox.Text[0]);
-                list.Add(new List<object>());
-                //ContourList.Items.Clear();
-                List<object> ob = new List<object>();
+                LoadSymbolList();
                 SymbolTextBox.Clear();
-                /* foreach (object o in ContourList.Items)
-                    ob.Add(o);
-                 list[SYmbolList.SelectedIndex] = s;
-                 foreach (string s in list.Last())
-                     ContourList.Items.Add(s);*/
             }
         }
 
         private void AddContourButton_Click(object sender, EventArgs e)
         {
-            ContourList.Items.Add("Contour " + (ContourList.Items.Count + 1));
-            list[SYmbolList.SelectedIndex].Add("Contour " + (ContourList.Items.Count));
-            workSpace.AddContour();
+            if (SYmbolList.SelectedIndex != -1)
+            {
+                workSpace.AddContour();
+                LoadContourList(SYmbolList.SelectedIndex);
+            }
         }
 
         private void ContourList_SelectedIndexChanged(object sender, EventArgs e)
@@ -122,13 +114,16 @@ namespace Task_6
             workSpace.ChooseContour(-1);
             WorkPanel.Invalidate(); 
         }
+        private void LoadSymbolList()
+        {
+            SYmbolList.Items.Clear();
+            foreach (object ob in workSpace.SymbolList())
+                SYmbolList.Items.Add(ob);
+        }
         private void LoadContourList(int n)
         {
             if (n != -1)
             {
-                /*ContourList.Items.Clear();
-                foreach (object ob in list[n])
-                    ContourList.Items.Add(ob);*/
                 ContourList.Items.Clear();
                 foreach (object ob in workSpace.ContourList(n))
                     ContourList.Items.Add(ob);
@@ -155,7 +150,6 @@ namespace Task_6
         private void newFontToolStripMenuItem_Click(object sender, EventArgs e)
         {
             workSpace = new WorkSpace(WorkPanel.Width, WorkPanel.Height);
-            list.Clear();
             SYmbolList.Items.Clear();
             ContourList.Items.Clear();
             WorkPanel.Invalidate();
@@ -177,32 +171,12 @@ namespace Task_6
         {
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                List<object> l = new List<object>();
-                int n = 0;
                 workSpace.LoadFont(openFileDialog1.FileName);
                 SYmbolList.Items.Clear();
-                l = workSpace.SymbolList();
-                foreach (object o in l)
-                {
-                    list.Add(new List<object>());
-                    SYmbolList.Items.Add(o);
-                }
-                for (int i = 0; i < SYmbolList.Items.Count; i++)
-                {
-                    LoadContourList(i);
-                }
-                /*List<object> li = new List<object>();
-                foreach (object o in l)
-                {
-                    list[n] = new List<object>();
-                    li = workSpace.ContourList(n);
-                    foreach (object ob in li)
-                        list[n].Add(ob);
-                    n++;
-                }*/
+                LoadSymbolList();
+                SYmbolList.SelectedIndex = -1;
+                ContourList.Items.Clear();
             }
-            SYmbolList.SelectedIndex = -1;
-            ContourList.Items.Clear();
             Invalidate();
         }
 
@@ -217,9 +191,8 @@ namespace Task_6
             if (SYmbolList.SelectedIndex != -1)
             {
                 workSpace.DeleteSymbol(SYmbolList.SelectedIndex);
-                SYmbolList.Items.RemoveAt(SYmbolList.SelectedIndex);
+                LoadSymbolList();
                 SYmbolList.SelectedIndex = -1;
-                ContourList.Items.Clear();
             }
             Invalidate();
         }
@@ -230,7 +203,6 @@ namespace Task_6
             {
                 workSpace.DeleteContour(ContourList.SelectedIndex);
                 ContourList.SelectedIndex = -1;
-                ContourList.Items.Clear();
                 LoadContourList(SYmbolList.SelectedIndex);
             }
             Invalidate();
