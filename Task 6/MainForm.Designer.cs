@@ -48,6 +48,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.CoordTextBox = new System.Windows.Forms.CheckBox();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -232,11 +233,25 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
+            // CoordTextBox
+            // 
+            this.CoordTextBox.AutoSize = true;
+            this.CoordTextBox.Checked = true;
+            this.CoordTextBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.CoordTextBox.Location = new System.Drawing.Point(881, 511);
+            this.CoordTextBox.Name = "CoordTextBox";
+            this.CoordTextBox.Size = new System.Drawing.Size(106, 21);
+            this.CoordTextBox.TabIndex = 14;
+            this.CoordTextBox.Text = "Coordinates";
+            this.CoordTextBox.UseVisualStyleBackColor = true;
+            this.CoordTextBox.CheckedChanged += new System.EventHandler(this.CoordTextBox_CheckedChanged);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1136, 647);
+            this.Controls.Add(this.CoordTextBox);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.AllSymbolCheckBox);
             this.Controls.Add(this.AllixCheckBox);
@@ -281,6 +296,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.CheckBox CoordTextBox;
     }
 }
 

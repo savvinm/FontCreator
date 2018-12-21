@@ -19,33 +19,24 @@ namespace Task_6
         {
             symbols = new List<Symbol>();
         }
-        public MyFont(MyFont f)
+        public void DrawString(Graphics g, string s, int pt, float x, float y)
         {
-            symbols = new List<Symbol>();
-            Symbol[] s = new Symbol[f.symbols.Count];
-            f.symbols.CopyTo(s);
-            foreach (Symbol sy in s)
-                symbols.Add(sy);
+            foreach (Char c in s)
+                foreach (Symbol sym in symbols)
+                {
+                    if (sym.symbol == c)
+                    {
+                        sym.Draw(g, pt, x, y);
+                        break;
+                    }
+                }
         }
-        public void ToOnePT(float coef)
-        {
-            foreach (Symbol s in symbols)
-                s.ToOnePT(coef);
-        }
-        public void DrawSymbol(Graphics g, char c, float x, float y)
-        {
-            foreach(Symbol s in symbols)
-            {
-                if (s.symbol == c)
-                    s.Draw(g, x, y);
-            }
-        }
-        public void DrawSymbol(Graphics g, char c)
+        public void DrawSymbol(Graphics g, char c, bool allix, bool coord, ScreenConverter sc)
         {
             foreach (Symbol s in symbols)
             {
                 if (s.symbol == c)
-                    s.Draw(g);
+                    s.Draw(g, allix, coord, sc);
             }
         }
         public void Save(string filename)

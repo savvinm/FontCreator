@@ -16,6 +16,7 @@ namespace Task_6
         public WorkSpace workSpace;
         Point last;
         List<List<object>> list;
+        ScreenConverter sc;
         public MainForm()
         {
             InitializeComponent();
@@ -23,6 +24,8 @@ namespace Task_6
            | BindingFlags.Instance | BindingFlags.NonPublic, null, WorkPanel, new object[] { true });
             workSpace = new WorkSpace(WorkPanel.Width, WorkPanel.Height);
             list = new List<List<object>>();
+            sc = new ScreenConverter(-0.5, -0.5, 1, 1, WorkPanel.Width, WorkPanel.Height);
+            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
         }
         private void AddLineButton_Click(object sender, EventArgs e)
         {
@@ -34,7 +37,7 @@ namespace Task_6
         {
             Bitmap bmp = new Bitmap(WorkPanel.Width, WorkPanel.Height);
             Graphics g = Graphics.FromImage(bmp);
-            workSpace.DrawAll(g);
+            workSpace.DrawAll(g, sc);
             e.Graphics.DrawImage(bmp, 0, 0);
             g.Dispose();
             bmp.Dispose();
@@ -46,7 +49,7 @@ namespace Task_6
             {
                 last = e.Location;
             }
-            workSpace.PointIn(e.Location);
+            workSpace.PointIn(e.Location, sc);
             WorkPanel.Invalidate();
         }
 
@@ -62,7 +65,7 @@ namespace Task_6
             {
                 float dx = e.Location.X - last.X;
                 float dy = e.Location.Y - last.Y;
-                workSpace.UpdatePoint(e.Location, dx, dy);
+                workSpace.UpdatePoint(e.Location, dx, dy, sc);
                 WorkPanel.Invalidate();
                 last = e.Location;
             }
@@ -205,6 +208,12 @@ namespace Task_6
             SYmbolList.SelectedIndex = -1;
             ContourList.Items.Clear();
             Invalidate();
+        }
+
+        private void CoordTextBox_CheckedChanged(object sender, EventArgs e)
+        {
+            workSpace.CheckCoord(CoordTextBox.Checked);
+            WorkPanel.Invalidate();
         }
     }
 }

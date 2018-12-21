@@ -25,20 +25,20 @@ namespace Task_6
         {
             contours = new List<Contour>();
         }
-        public void ToOnePT(float coef)
+        public void Draw(Graphics g, int pt, float x, float y, ScreenConverter sc)
         {
             foreach (Contour c in contours)
-                c.ToOnePT(coef);
+                c.Draw(g, false, pt, x, y, sc);
         }
-        public void Draw(Graphics g)
+        public void Draw(Graphics g, bool allix, bool coord, ScreenConverter sc)
         {
             foreach (Contour c in contours)
-                c.Draw(g, true);
+                c.Draw(g, allix, coord, sc);
         }
-        public void Draw(Graphics g, float x, float y)
+        public void Draw(Graphics g, int pt, float x, float y)
         {
             foreach (Contour c in contours)
-                c.Draw(g, false, x, y);
+                c.Draw(g, false, pt, x, y);
         }
         public override string ToString()
         {

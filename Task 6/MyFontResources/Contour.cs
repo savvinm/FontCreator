@@ -21,28 +21,25 @@ namespace Task_6
             lines = new List<ILine>();
             myPoints = new List<MyPoint>();
         }
-        public void Draw(Graphics g, bool allix)
+        public void Draw(Graphics g, bool allix, int pt, float x, float y, ScreenConverter sc)
         {
-            foreach (MyPoint p in myPoints)
-                p.Draw(g, allix);
             foreach (ILine l in lines)
-                l.Draw(g, allix);
+                l.Draw(g, allix, pt, x, y, sc);
         }
-        public void Draw(Graphics g, bool allix, float x, float y)
+        public void Draw(Graphics g, bool allix, bool coord, ScreenConverter sc)
         {
             foreach (MyPoint p in myPoints)
-                p.Draw(g, allix, x, y);
+                p.Draw(g, allix, coord, sc);
             foreach (ILine l in lines)
-                l.Draw(g, allix, x, y);
+                l.Draw(g, allix, sc);
         }
-        public void ToOnePT(float coef)
+        public void Draw(Graphics g, bool allix, int pt, float x, float y)
         {
-            foreach(ILine l in lines)
-            {
-                l.ToOnePT(coef);
-            }
-            foreach (MyPoint p in myPoints)
-                p.ToOnePT(coef);
+            
+            /*foreach (MyPoint p in myPoints)
+                p.Draw(g, allix, pt, x, y);*/
+            foreach (ILine l in lines)
+                l.Draw(g, allix, pt, x, y);
         }
         public override string ToString()
         {

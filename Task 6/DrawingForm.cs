@@ -15,12 +15,14 @@ namespace Task_6
         MainForm mainForm;
         FontDrawer fontDrawer;
         bool draw;
+        ScreenConverter sc;
         public DrawingForm(MainForm f)
         {
             InitializeComponent();
             mainForm = f;
             fontDrawer = new FontDrawer();
             draw = false;
+            sc = new ScreenConverter(0, 0, 1, 1, Width, Height);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -32,7 +34,12 @@ namespace Task_6
         private void DrawingForm_Paint(object sender, PaintEventArgs e)
         {
             if (draw)
-                fontDrawer.DrawString(e.Graphics, mainForm.workSpace.font, 30, textBox1.Text, 50, 100);
+                fontDrawer.DrawString(e.Graphics, mainForm.workSpace.font, (int)(numericUpDown1.Value), textBox1.Text, 100, 100);
+        }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            Invalidate();
         }
     }
 }

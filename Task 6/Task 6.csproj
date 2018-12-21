@@ -68,6 +68,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MyFontResources\Symbol.cs" />
+    <Compile Include="ScreenConverter.cs" />
     <Compile Include="WorkSpace.cs" />
     <EmbeddedResource Include="DrawingForm.resx">
       <DependentUpon>DrawingForm.cs</DependentUpon>

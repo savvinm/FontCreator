@@ -36,26 +36,26 @@ namespace Task_6
             points.Add(P2);
             return points;
         }
-        public void ToOnePT(float coef)
-        {
-            P1.X = P1.X * coef;
-            P1.Y = P1.Y * coef;
-            P2.X = P2.X * coef;
-            P2.Y = P2.Y * coef;
-        }
-        public void Draw(Graphics g, bool allix)
+        public void Draw(Graphics g, bool allix, int pt, float x, float y, ScreenConverter sc)
         {
             if (Current)
-                g.DrawLine(Pens.Red, P1.X, P1.Y, P2.X, P2.Y);
+                g.DrawLine(Pens.Red, sc.II(P1.X) * pt + x, sc.JJ(P1.Y) * pt + y, sc.II(P2.X) *pt + x, sc.JJ(P2.Y) * pt + y);
             else
-                g.DrawLine(Pens.Black, P1.X, P1.Y, P2.X, P2.Y);
+                g.DrawLine(Pens.Black, sc.II(P1.X) * pt + x, sc.JJ(P1.Y) * pt + y, sc.II(P2.X) * pt + x, sc.JJ(P2.Y) * pt + y);
         }
-        public void Draw(Graphics g, bool allix, float x, float y)
+        public void Draw(Graphics g, bool allix, ScreenConverter sc)
         {
             if (Current)
-                g.DrawLine(Pens.Red, P1.X + x, P1.Y + y, P2.X + x, P2.Y + y);
+                g.DrawLine(Pens.Red, sc.II(P1.X), sc.JJ(P1.Y), sc.II(P2.X), sc.JJ(P2.Y));
             else
-                g.DrawLine(Pens.Black, P1.X + x, P1.Y + y, P2.X + x, P2.Y + y);
+                g.DrawLine(Pens.Black, sc.II(P1.X), sc.JJ(P1.Y), sc.II(P2.X), sc.JJ(P2.Y));
+        }
+        public void Draw(Graphics g, bool allix, int pt, float x, float y)
+        {
+            if (Current)
+                g.DrawLine(Pens.Red, (float)(P1.X * pt + x), (float)(P1.Y * pt + y), (float)(P2.X * pt + x), (float)(P2.Y * pt + y));
+            else
+                g.DrawLine(Pens.Black, (float)(P1.X * pt + x), (float)(-P1.Y * pt + y), (float)(P2.X * pt + x), (float)(-P2.Y * pt + y));
         }
         public override string ToString()
         {

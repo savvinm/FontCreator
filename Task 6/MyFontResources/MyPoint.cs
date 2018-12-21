@@ -9,13 +9,19 @@ namespace Task_6
 {
     public class MyPoint
     {
-        public float X;
-        public float Y;
+        public double X;
+        public double Y;
         public bool Current;
         public MyPoint(PointF p)
         {
             X = p.X;
             Y = p.Y;
+            Current = false;
+        }
+        public MyPoint(double x, double y)
+        {
+            X = x;
+            Y = y;
             Current = false;
         }
         public MyPoint()
@@ -24,12 +30,22 @@ namespace Task_6
             Y = 0;
             Current = false;
         }
-        public void ToOnePT(float coef)
+        public void Draw(Graphics g, bool allix, bool coord, ScreenConverter sc)
         {
-            X = X * coef;
-            Y = Y * coef;
+            if (!allix)
+                return;
+            if (coord)
+            {
+                string s = "(" + sc.II(X) + ";" + sc.JJ(Y) + ")";
+                Brush b = new SolidBrush(Color.FromArgb(60, Color.Black));
+                g.DrawString(s, new Font("Courier", 8), b, sc.II(X) + 4, sc.JJ(Y) - 1);
+            }
+            if (Current)
+                g.DrawEllipse(Pens.Red, sc.II(X) - 3, sc.JJ(Y) - 3, 6, 6);
+            else
+                g.DrawEllipse(Pens.Black, sc.II(X) - 3, sc.JJ(Y) - 3, 6, 6);
         }
-        public void Draw(Graphics g, bool allix)
+        /*public void Draw(Graphics g, bool allix, int pt, float x, float y)
         {
             if (!allix)
                 return;
@@ -37,26 +53,12 @@ namespace Task_6
             //Font f = new Font("Arial", 10);
             Brush b = new SolidBrush(Color.FromArgb(60, Color.Black));
             //f.
-            g.DrawString(s, new Font("Courier", 8), b, X + 4, Y - 1);
+            g.DrawString(s, new Font("Courier", 8), b, (float)(X * pt + 4), (float)(Y * pt - 1));
             if (Current)
-                g.DrawEllipse(Pens.Red, X - 3, Y - 3, 6, 6);
+                g.DrawEllipse(Pens.Red, x + 3 - 3, y + Y - 3, 6, 6);
             else
-                g.DrawEllipse(Pens.Black, X - 3, Y - 3, 6, 6);
-        }
-        public void Draw(Graphics g, bool allix, float x, float y)
-        {
-            if (!allix)
-                return;
-            string s = "(" + X + ";" + Y + ")";
-            //Font f = new Font("Arial", 10);
-            Brush b = new SolidBrush(Color.FromArgb(60, Color.Black));
-            //f.
-            g.DrawString(s, new Font("Courier", 8), b, X + 4, Y - 1);
-            if (Current)
-                g.DrawEllipse(Pens.Red, x + X - 3, y + Y - 3, 6, 6);
-            else
-                g.DrawEllipse(Pens.Black, x + X - 3, y + Y - 3, 6, 6);
-        }
+                g.DrawEllipse(Pens.Black, sc.II(x + X) - 3, sc.JJ(y + Y) - 3, 6, 6);
+        }*/
     }
 }
 

@@ -46,12 +46,12 @@ namespace Task_6
                 while (str[pos] == ' ')
                     pos++;
             }
-            /*foreach(ILine l in c.lines)
+            foreach(ILine l in c.lines)
             {
                 foreach (MyPoint p in l.GetPoints())
                     c.myPoints.Add(p);
-            }*/
-            for (int j = 0; j < c.lines.Count; j++)
+            }
+            /*for (int j = 0; j < c.lines.Count; j++)
             {
                 List<MyPoint> list = c.lines[j].GetPoints();
                 for (int i = 0; i < list.Count; i++)
@@ -75,14 +75,17 @@ namespace Task_6
                                 c.lines[j] = new Bezie(list[i], list[1], list[2], list[3]);
                             if (i == 1)
                                 c.lines[j] = new Bezie(list[0], list[1], list[2], list[3]);
-                        }*/
+                        }
+                        foreach (MyPoint p in c.lines[j].GetPoints())
+                            c.myPoints.Add(p);
+                        break;
                     }
                     foreach (MyPoint p in c.lines[j].GetPoints())
                         c.myPoints.Add(p);
                     //c.myPoints.Add(p);
                     //PointInList(c.myPoints, p);
                 }
-            }
+            }*/
             return c;
         }
         private ILine LineFromString(string str, ref int pos)
@@ -136,7 +139,7 @@ namespace Task_6
                 if (pos == str.Length)
                     break;
             }
-            p.Y = Convert.ToSingle(s);
+            p.Y = Convert.ToDouble(s);
             return p;
         }
         private int PointInList(List<MyPoint> l, MyPoint p)

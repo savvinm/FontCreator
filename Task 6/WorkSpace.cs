@@ -20,6 +20,7 @@ namespace Task_6
         List<MyPoint> myPoints;
         bool allix;
         bool AllSymbol;
+        bool coord;
         public WorkSpace(int w, int h)
         {
             Height = h;
@@ -29,6 +30,7 @@ namespace Task_6
             font = new MyFont();
             allix = true;
             AllSymbol = false;
+            coord = true;
         }
         public void SaveFont(string filename)
         {
@@ -117,11 +119,15 @@ namespace Task_6
         {
             AllSymbol = all;
         }
+        public void CheckCoord(bool all)
+        {
+            coord = all;
+        }
         public void AddPoint(PointF p)
         {
             //points.Add(p);
         }
-        public void UpdatePoint(PointF p, float dx, float dy)
+        public void UpdatePoint(PointF p, float dx, float dy, ScreenConverter sc)
         {
             /*int n = SearchMyPoint(p);
             if (n != -1)
@@ -131,15 +137,15 @@ namespace Task_6
             }*/
             if (lastPoint != null)
             {
-                lastPoint.X += dx;
-                lastPoint.Y += dy;
+                lastPoint.X += sc.LR((int)dx);
+                lastPoint.Y -= sc.LR((int)dy);
                 lastPoint.Current = false;
                 currpoints.Clear();
             }
         }
-        public void PointIn(PointF p)
+        public void PointIn(PointF p, ScreenConverter sc)
         {
-            int n = SearchMyPoint(p);
+            int n = SearchMyPoint(p, sc);
             if (n != -1)
             {
                 lastPoint = myPoints[n];
@@ -157,7 +163,7 @@ namespace Task_6
             }
             else
             {
-                myPoints.Add(new MyPoint(p));
+                myPoints.Add(new MyPoint(sc.XX((int)p.X), sc.YY((int)p.Y)));
                 lastPoint = myPoints.Last();
             }
             
@@ -185,12 +191,12 @@ namespace Task_6
         {
             lines.Add(new Line(p1, p2));
         }
-        public int SearchMyPoint(PointF p)
+        public int SearchMyPoint(PointF p, ScreenConverter sc)
         {
             for (int i = 0; i < myPoints.Count; i++)
             {
                 MyPoint P = myPoints[i];
-                if (p.X <= P.X + 4 && p.X >= P.X - 4 && p.Y >= P.Y - 4 && p.Y <= P.Y + 4)
+                if (p.X <= sc.II(P.X) + 4 && p.X >= sc.II(P.X) - 4 && p.Y >= sc.JJ(P.Y) - 4 && p.Y <= sc.JJ(P.Y) + 4)
                     return i;
             }
             return -1;
@@ -201,14 +207,6 @@ namespace Task_6
         }
         public void AddILine()
         {
-            /*foreach(MyPoint p in myPoints)
-            {
-                if (p.Current)
-                {
-                    currpoints.Add(p);
-                    p.Current = false;
-                }
-            }*/
             if (currpoints.Count == 2)
             {
                 AddILine(currpoints[0], currpoints[1]);
@@ -217,43 +215,48 @@ namespace Task_6
             {
                 AddILine(currpoints[0], currpoints[1], currpoints[2], currpoints[3]);
             }
+            else
+            {
+                for(int i = 0; i < currpoints.Count -1; i++)
+                {
+                    AddILine(currpoints[i], currpoints[i + 1]);
+                }
+            }
             foreach (MyPoint p in myPoints)
                 p.Current = false;
-            /*foreach (MyPoint p in currpoints)
-                points.Add(p);*/
             currpoints.Clear();
         }
-        public void DrawContour(Graphics g, Contour c)
+        public void DrawContour(Graphics g, Contour c, ScreenConverter sc)
         {
-            c.Draw(g, true);
+            c.Draw(g, allix, coord, sc);
         }
-        public void DrawContours(Graphics g, List<Contour> c)
+        public void DrawContours(Graphics g, List<Contour> c, ScreenConverter sc)
         {
             foreach (Contour co in c)
-                co.Draw(g, true);
+                co.Draw(g, allix, coord, sc);
         }
-        public void DrawSymbol(Graphics g)
+        public void DrawSymbol(Graphics g, ScreenConverter sc)
         {
             if (curSymbol != null && curSymbol.contours != null)
             {
                 foreach (Contour c in curSymbol.contours)
-                    c.Draw(g, allix);
+                    c.Draw(g, allix, coord, sc);
             }
         }
-        public void DrawCurContour(Graphics g)
+        public void DrawCurContour(Graphics g, ScreenConverter sc)
         {
             if (curContour != null)
             {
-                curContour.Draw(g, allix);
+                curContour.Draw(g, allix, coord, sc);
             }
         }
-        public void DrawAll(Graphics g)
+        public void DrawAll(Graphics g, ScreenConverter sc)
         {
             DrawLines(g);
             if (AllSymbol)
-                DrawSymbol(g);
+                DrawSymbol(g, sc);
             else
-                DrawCurContour(g);
+                DrawCurContour(g, sc);
         }
     }
 }

@@ -9,11 +9,11 @@ namespace Task_6
 {
     public interface ILine
     {
-        void Draw(Graphics g, bool allix);
-        void Draw(Graphics g, bool allix, float x, float y);
+        void Draw(Graphics g, bool allix, ScreenConverter sc);
+        void Draw(Graphics g, bool allix, int pt, float x, float y);
+        void Draw(Graphics g, bool allix, int pt, float x, float y, ScreenConverter sc);
         string ToString();
         bool Check();
-        void ToOnePT(float coef);
         List<MyPoint> GetPoints();
         void PointByIndex(int n, MyPoint p);
     }

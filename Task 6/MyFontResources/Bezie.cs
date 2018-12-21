@@ -33,6 +33,26 @@ namespace Task_6
             if (n == 3)
                 P4 = p;
         }
+        public void Draw(Graphics g, bool allix, int pt, float x, float y, ScreenConverter sc)
+        {
+            float t = 0f;
+            float dt = 0.01f;
+            PointF[] result = new PointF[101];
+            for (int i = 0; i <= 100; i++)
+            {
+                result[i] = B(t, pt, x, y, sc);
+                t += dt;
+            }
+            if (allix)
+            {
+                g.DrawLine(Pens.Silver, sc.II(P1.X) * pt + x, sc.JJ(P1.Y) * pt + y, sc.II(P2.X) * pt + x, sc.JJ(P2.Y) * pt + y);
+                g.DrawLine(Pens.Silver, sc.II(P3.X) * pt + x, sc.JJ(P3.Y) * pt + y, sc.II(P4.X) * pt + x, sc.JJ(P4.Y) * pt + y);
+            }
+            if (Current)
+                g.DrawLines(Pens.Red, result);
+            else
+                g.DrawLines(Pens.Black, result);
+        }
         public List<MyPoint> GetPoints()
         {
             List<MyPoint> points = new List<MyPoint>();
@@ -42,62 +62,54 @@ namespace Task_6
             points.Add(P4);
             return points;
         }
-        private PointF B(float t)
+        private PointF B(float t, ScreenConverter sc)
         {
             float c0 = (1 - t) * (1 - t) * (1 - t);
             float c1 = (1 - t) * (1 - t) * 3 * t;
             float c2 = (1 - t) * t * 3 * t;
             float c3 = t * t * t;
-            float x = c0 * P1.X + c1 * P2.X + c2 * P3.X + c3 * P4.X;
-            float y = c0 * P1.Y + c1 * P2.Y + c2 * P3.Y + c3 * P4.Y;
-            return new PointF(x, y);
+            double x = c0 * sc.II(P1.X) + c1 * sc.II(P2.X) + c2 * sc.II(P3.X) + c3 * sc.II(P4.X);
+            double y = c0 * sc.JJ(P1.Y) + c1 * sc.JJ(P2.Y) + c2 * sc.JJ(P3.Y) + c3 * sc.JJ(P4.Y);
+            return new PointF((float)x, (float)y);
         }
-        private PointF B(float t, float x, float y)
+        private PointF B(float t, int pt, float x, float y, ScreenConverter sc)
         {
             float c0 = (1 - t) * (1 - t) * (1 - t);
             float c1 = (1 - t) * (1 - t) * 3 * t;
             float c2 = (1 - t) * t * 3 * t;
             float c3 = t * t * t;
-            float X = c0 * (P1.X + x) + c1 * (P2.X + x) + c2 * (P3.X + x) + c3 * (P4.X + x);
-            float Y = c0 * (P1.Y + y) + c1 * (P2.Y + y) + c2 * (P3.Y + y) + c3 * (P4.Y + y);
-            return new PointF(X, Y);
+            double X = c0 * (sc.II(P1.X) * pt + x) + c1 * (sc.II(P2.X) * pt + x) + c2 * (sc.II(P3.X) * pt + x) + c3 * (sc.II(P4.X) * pt + x);
+            double Y = c0 * (sc.JJ(P1.Y) * pt + y) + c1 * (sc.JJ(P2.Y) * pt + y) + c2 * (sc.JJ(P3.Y) * pt + y) + c3 * (sc.JJ(P4.Y) * pt + y);
+            return new PointF((float)X, (float)Y);
         }
-        public void ToOnePT(float coef)
+        private PointF B(float t, int pt, float x, float y)
         {
-            P2.X = P2.X *coef;
-            P2.Y = P2.Y * coef;
-
-            P1.X = P1.X * coef;
-            P1.Y = P1.Y * coef;
-
-            P3.X = P3.X * coef;
-            P3.Y = P3.Y * coef;
-
-            P4.X = P4.X * coef;
-            P4.Y = P4.Y * coef;
+            float c0 = (1 - t) * (1 - t) * (1 - t);
+            float c1 = (1 - t) * (1 - t) * 3 * t;
+            float c2 = (1 - t) * t * 3 * t;
+            float c3 = t * t * t;
+            double X = c0 * (P1.X * pt + x) + c1 * (P2.X * pt + x) + c2 * (P3.X * pt + x) + c3 * (P4.X * pt + x);
+            double Y = c0 * (-P1.Y * pt + y) + c1 * (-P2.Y * pt + y) + c2 * (-P3.Y * pt + y) + c3 * (-P4.Y * pt + y);
+            return new PointF((float)X, (float)Y);
         }
         public bool Check()
         {
             return (P2 == null || P1 == null || P3 == null || P4 == null);
         }
-        public void Draw(Graphics g, bool allix)
+        public void Draw(Graphics g, bool allix, ScreenConverter sc)
         {
             float t = 0f;
             float dt = 0.01f;
             PointF[] result = new PointF[101];
             for (int i = 0; i <= 100; i++)
             {
-                //x = (1 - t) * (1 - t) * (1 - 3) * P1.X + 3 * (1 - t) * (1 - t) * t * P2.X + 3 * (1 - t) * t * t * P3.X + t * t * t * P4.X;
-                //y = (1 - t) * (1 - t) * (1 - 3) * P1.Y + 3 * (1 - t) * (1 - t) * t * P2.Y + 3 * (1 - t) * t * t * P3.Y + t * t * t * P4.Y;
-                //result[(int)(t * 100)] = new PointF(x, y);
-                result[i] = B(t);
+                result[i] = B(t, sc);
                 t += dt;
-
             }
             if (allix)
             {
-                g.DrawLine(Pens.Silver, P1.X, P1.Y, P2.X, P2.Y);
-                g.DrawLine(Pens.Silver, P3.X, P3.Y, P4.X, P4.Y);
+                g.DrawLine(Pens.Silver, sc.II(P1.X), sc.JJ(P1.Y), sc.II(P2.X), sc.JJ(P2.Y));
+                g.DrawLine(Pens.Silver, sc.II(P3.X), sc.JJ(P3.Y), sc.II(P4.X), sc.JJ(P4.Y));
             }
             if (Current)
                 g.DrawLines(Pens.Red, result);
@@ -105,24 +117,21 @@ namespace Task_6
                 g.DrawLines(Pens.Black, result);
             
         }
-        public void Draw(Graphics g, bool allix, float x, float y)
+        public void Draw(Graphics g, bool allix, int pt, float x, float y)
         {
             float t = 0f;
             float dt = 0.01f;
             PointF[] result = new PointF[101];
             for (int i = 0; i <= 100; i++)
             {
-                //x = (1 - t) * (1 - t) * (1 - 3) * P1.X + 3 * (1 - t) * (1 - t) * t * P2.X + 3 * (1 - t) * t * t * P3.X + t * t * t * P4.X;
-                //y = (1 - t) * (1 - t) * (1 - 3) * P1.Y + 3 * (1 - t) * (1 - t) * t * P2.Y + 3 * (1 - t) * t * t * P3.Y + t * t * t * P4.Y;
-                //result[(int)(t * 100)] = new PointF(x, y);
-                result[i] = B(t, x, y);
+                result[i] = B(t, pt, x, y);
                 t += dt;
 
             }
             if (allix)
             {
-                g.DrawLine(Pens.Silver, P1.X + x, P1.Y + y, P2.X + x, P2.Y + y);
-                g.DrawLine(Pens.Silver, P3.X + x, P3.Y + y, P4.X + x, P4.Y + y);
+                g.DrawLine(Pens.Silver, (float)(P1.X * pt + x), (float)(P1.Y * pt + y), (float)(P2.X * pt + x), (float)(P2.Y * pt + y));
+                g.DrawLine(Pens.Silver, (float)(P3.X * pt + x), (float)(P3.Y * pt + y), (float)(P4.X * pt + x), (float)(P4.Y * pt + y));
             }
             if (Current)
                 g.DrawLines(Pens.Red, result);
