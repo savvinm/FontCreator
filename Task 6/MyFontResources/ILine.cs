@@ -9,7 +9,7 @@ namespace Task_6
 {
     public interface ILine
     {
-        void Draw(Graphics g, bool allix, ScreenConverter sc);
+        void Draw(Graphics g, bool current, Color color, bool allix, ScreenConverter sc);
         void Draw(Graphics g, bool allix, int pt, float x, float y);
         void Draw(Graphics g, bool allix, int pt, float x, float y, ScreenConverter sc);
         string ToString();

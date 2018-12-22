@@ -16,6 +16,8 @@ namespace Task_6
         public WorkSpace workSpace;
         Point last;
         ScreenConverter sc;
+        ILIneFactory factory;
+        ILIneFactory fact;
         public MainForm()
         {
             InitializeComponent();
@@ -24,6 +26,10 @@ namespace Task_6
             workSpace = new WorkSpace(WorkPanel.Width, WorkPanel.Height);
             sc = new ScreenConverter(-0.5, -0.5, 1, 1, WorkPanel.Width, WorkPanel.Height);
             System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
+            LineRadioButton.Tag = new LineFactory();
+            BezieRadioButton.Tag = new BezieFactory();
+            factory = new LineFactory();
+            fact = new LineFactory();
         }
         private void AddLineButton_Click(object sender, EventArgs e)
         {
@@ -47,7 +53,7 @@ namespace Task_6
             {
                 last = e.Location;
             }
-            workSpace.PointIn(e.Location, sc);
+            workSpace.PointIn(e.Location, factory, fact, sc);
             WorkPanel.Invalidate();
         }
 
@@ -78,7 +84,7 @@ namespace Task_6
 
         private void DeleteButton_Click(object sender, EventArgs e)
         {
-            workSpace.DeletePoints();
+            workSpace.DeletePoints(fact);
             WorkPanel.Invalidate();
         }
 
@@ -192,6 +198,7 @@ namespace Task_6
             {
                 workSpace.DeleteSymbol(SYmbolList.SelectedIndex);
                 LoadSymbolList();
+                ContourList.Items.Clear();
                 SYmbolList.SelectedIndex = -1;
             }
             Invalidate();
@@ -206,6 +213,26 @@ namespace Task_6
                 LoadContourList(SYmbolList.SelectedIndex);
             }
             Invalidate();
+        }
+
+        private void RadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if ((sender as RadioButton).Checked)
+                factory = (ILIneFactory)(sender as RadioButton).Tag;
+            Invalidate();
+        }
+        private void LastRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if (LastLineRadioButton.Checked)
+                fact = new LineFactory();
+            if (LastBezierRadioButton.Checked)
+                fact = new BezieFactory();
+        }
+
+        private void CloseContourButton_Click(object sender, EventArgs e)
+        {
+            workSpace.CloseContour(fact);
+            WorkPanel.Invalidate();
         }
     }
 }

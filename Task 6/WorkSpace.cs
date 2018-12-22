@@ -18,15 +18,18 @@ namespace Task_6
         List<MyPoint> currpoints;
         MyPoint lastPoint;
         List<MyPoint> myPoints;
+        MyPoint curPoint;
         bool allix;
         bool AllSymbol;
         bool coord;
+        bool closed;
         public WorkSpace(int w, int h)
         {
             Height = h;
             Width = w;
             currpoints = new List<MyPoint>();
             myPoints = new List<MyPoint>();
+            curPoint = new MyPoint();
             font = new MyFont();
             allix = true;
             AllSymbol = false;
@@ -42,7 +45,7 @@ namespace Task_6
             curContour = null;
             currpoints.Clear();
             curSymbol = null;
-            myPoints = null;
+            myPoints = new List<MyPoint>();
             font.SortSymbols();
         }
         public List<object> SymbolList()
@@ -87,7 +90,11 @@ namespace Task_6
             }
             if (n < font.symbols.Count)
             {
+                if (curSymbol != null)
+                    foreach (Contour c in curSymbol.contours)
+                        c.Current = false;
                 curSymbol = font.symbols[n];
+                closed = false;
             }
         }
         public void ChooseContour(int n)
@@ -99,9 +106,14 @@ namespace Task_6
             }
             if (n < curSymbol.contours.Count)
             {
+                foreach (Contour c in curSymbol.contours)
+                    c.Current = false;
                 lines = curSymbol.contours[n].lines;
                 curContour = curSymbol.contours[n];
+                curContour.Current = true;
                 myPoints = curContour.myPoints;
+                curSymbol.contours[n].Current = true;
+                closed = false;
             }
         }
         public void AddSymbol(char s)
@@ -112,6 +124,12 @@ namespace Task_6
         public void AddContour()
         {
             curSymbol.contours.Add(new Contour());
+        }
+        public void CloseContour(ILIneFactory factory)
+        {
+            if (myPoints.Count >=3)
+            lines.Add(factory.Create(lastPoint, myPoints[0], myPoints));
+            closed = true;
         }
         public void CheckAllix(bool all)
         {
@@ -127,40 +145,99 @@ namespace Task_6
         }
         public void UpdatePoint(float dx, float dy, ScreenConverter sc)
         {
-            if (lastPoint != null)
+            if (curPoint != null)
             {
-                if (!(sc.II(lastPoint.X) + dx > Width - 4) && sc.II(lastPoint.X) + dx > 0)
+                    MyPoint cur = curPoint;
+                    if (!(sc.II(cur.X) + dx > Width - 4) && sc.II(cur.X) + dx > 0)
+                        cur.X += sc.LR((int)dx);
+                    if (!(sc.JJ(cur.Y) + dy > Height - 4) && sc.JJ(cur.Y) + dy > 0)
+                        cur.Y -= sc.LR((int)dy);
+                    lastPoint.Current = false;
+                   // lastPoint = myPoints.Last();
+                    currpoints.Clear();
+                    foreach (MyPoint P in myPoints)
+                        P.Current = false;
+                //}
+                /*if (!(sc.II(lastPoint.X) + dx > Width - 4) && sc.II(lastPoint.X) + dx > 0)
                     lastPoint.X += sc.LR((int)dx);
                 if (!(sc.JJ(lastPoint.Y) + dy > Height - 4) && sc.JJ(lastPoint.Y) + dy > 0)
                     lastPoint.Y -= sc.LR((int)dy);
                 lastPoint.Current = false;
-                currpoints.Clear();
+                lastPoint = myPoints.Last();
+                currpoints.Clear();*/
             }
         }
         public void PointIn(PointF p, ScreenConverter sc)
         {
-            int n = SearchMyPoint(p, sc);
-            if (n != -1)
+            if (curContour != null)
             {
-                lastPoint = myPoints[n];
-                if (myPoints[n].Current)
+                int n = SearchMyPoint(p, sc);
+                if (n != -1)
                 {
-                    myPoints[n].Current = false;
-                    currpoints.Remove(myPoints[n]);
+                    if (myPoints[n].Current)
+                    {
+                        myPoints[n].Current = false;
+                        currpoints.Remove(myPoints[n]);
+                    }
+                    else
+                    {
+                        myPoints[n].Current = true;
+                        currpoints.Add(myPoints[n]);
+                    }
+                    return;
                 }
                 else
                 {
-                    myPoints[n].Current = true;
-                    currpoints.Add(myPoints[n]);
+                    myPoints.Add(new MyPoint(sc.XX((int)p.X), sc.YY((int)p.Y)));
+                    lastPoint = myPoints.Last();
                 }
-                return;
             }
-            else
+        }
+        public void PointIn(PointF p, ILIneFactory factory, ILIneFactory fact, ScreenConverter sc)
+        {
+            if (curContour != null)
             {
-                myPoints.Add(new MyPoint(sc.XX((int)p.X), sc.YY((int)p.Y)));
-                lastPoint = myPoints.Last();
+                int n = SearchMyPoint(p, sc);
+                if (n != -1)
+                {
+                    curPoint = myPoints[n];
+                    if (myPoints[n].Current)
+                    {
+                        myPoints[n].Current = false;
+                        currpoints.Remove(myPoints[n]);
+                    }
+                    else
+                    {
+                        myPoints[n].Current = true;
+                        currpoints.Add(myPoints[n]);
+                    }
+                    return;
+                }
+                else
+                {
+                    if (lastPoint == null)
+                    {
+                        myPoints.Add(new MyPoint(sc.XX((int)p.X), sc.YY((int)p.Y)));
+                        if (myPoints.Count == 1)
+                            myPoints[0].First = true;
+                        lastPoint = myPoints.Last();
+                    }
+                    else
+                    {
+                        if (closed)
+                            lines.RemoveAt(lines.Count - 1);
+                        MyPoint curP = new MyPoint(sc.XX((int)p.X), sc.YY((int)p.Y));
+                        lines.Add(factory.Create(lastPoint, curP, myPoints));
+                        myPoints.Add(curP);
+                        lastPoint = myPoints.Last();
+                    }
+                    if (myPoints.Count >= 3)
+                    {
+                        CloseContour(fact);
+                        closed = true;
+                    }
+                }
             }
-            
         }
         public void DeleteSymbol(int n)
         {
@@ -168,6 +245,7 @@ namespace Task_6
             {
                 font.symbols.RemoveAt(n);
                 curSymbol = null;
+                lastPoint = null;
             }
         }
         public void DeleteContour(int n)
@@ -175,31 +253,63 @@ namespace Task_6
             if (n!= -1 && n < curSymbol.contours.Count)
             {
                 curSymbol.contours.RemoveAt(n);
-                curContour = null;       
+                curContour = null;
+                lastPoint = null;
             }
         }
-        public void DeletePoints()
+        public void DeletePoints(ILIneFactory factory)
         {
             currpoints.Clear();
-            for (int i = 0; i < myPoints.Count; i++)
+            int i = 0;
+            while (i < myPoints.Count)
             {
+                if (myPoints[i].Current)
+                {
+                    while (myPoints[i].Current && i < myPoints.Count)
+                    {
+                        int n = 0;
+                        for (int j = 0; j < lines.Count; i++)
+                        {
+                            foreach(MyPoint p in lines[j].GetPoints())
+                            {
+                                if (p.X == myPoints[i].X && p.Y == myPoints[i].Y)
+                                {
+                                    lines.RemoveAt(j);
+                                    n = j;
+                                }
+                            }
+                        }
+                        myPoints.RemoveAt(i);
+                        i--;
+                    }
+                    lines.Add(factory.Create(myPoints[i-1], myPoints[i], myPoints));
+                }
+                i++;
+            }
+            /*for (int i = 0; i < myPoints.Count; i++)
+            {
+                int n = 0;
                 if (myPoints[i].Current)
                 {
                     for (int j = 0; j < lines.Count; j++)
                     {
                         foreach (MyPoint p in lines[j].GetPoints())
                         {
-                            if (p == myPoints[i])
+                            if (p.X == myPoints[i].X && p.Y == myPoints[i].Y)
                             {
                                 lines.RemoveAt(j);
                                 j--;
                             }
                         }
                     }
+                    n++;
                     myPoints.RemoveAt(i);
+                    lines.Add(factory.Create(myPoints[i - 1], myPoints[i - 1 + n], myPoints));
                     i--;
                 }
-            }
+            }*/
+            lastPoint = myPoints.Last();
+            CloseContour(factory);
            // CheckPoints();
             /*foreach(ILine l in lines)
             {
@@ -215,11 +325,14 @@ namespace Task_6
         }
         private int SearchMyPoint(PointF p, ScreenConverter sc)
         {
-            for (int i = 0; i < myPoints.Count; i++)
+            if (p != null)
             {
-                MyPoint P = myPoints[i];
-                if (p.X <= sc.II(P.X) + 4 && p.X >= sc.II(P.X) - 4 && p.Y >= sc.JJ(P.Y) - 4 && p.Y <= sc.JJ(P.Y) + 4)
-                    return i;
+                for (int i = 0; i < myPoints.Count; i++)
+                {
+                    MyPoint P = myPoints[i];
+                    if (p.X <= sc.II(P.X) + 4 && p.X >= sc.II(P.X) - 4 && p.Y >= sc.JJ(P.Y) - 4 && p.Y <= sc.JJ(P.Y) + 4)
+                        return i;
+                }
             }
             return -1;
         }

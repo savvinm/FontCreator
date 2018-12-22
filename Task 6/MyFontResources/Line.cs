@@ -48,12 +48,19 @@ namespace Task_6
             else
                 g.DrawLine(Pens.Black, sc.II(P1.X) * pt + x, sc.JJ(P1.Y) * pt + y, sc.II(P2.X) * pt + x, sc.JJ(P2.Y) * pt + y);
         }
-        public void Draw(Graphics g, bool allix, ScreenConverter sc)
+        public void Draw(Graphics g, bool current, Color color, bool allix, ScreenConverter sc)
         {
-            if (Current)
-                g.DrawLine(Pens.Red, sc.II(P1.X), sc.JJ(P1.Y), sc.II(P2.X), sc.JJ(P2.Y));
+            Pen p = new Pen(color);
+            if (current)
+            {
+                p.Color = Color.Black;
+                g.DrawLine(p, sc.II(P1.X), sc.JJ(P1.Y), sc.II(P2.X), sc.JJ(P2.Y));
+            }
             else
-                g.DrawLine(Pens.Black, sc.II(P1.X), sc.JJ(P1.Y), sc.II(P2.X), sc.JJ(P2.Y));
+            {
+                p.Color = Color.FromArgb(220, Color.DarkSlateGray);
+                g.DrawLine(p, sc.II(P1.X), sc.JJ(P1.Y), sc.II(P2.X), sc.JJ(P2.Y));
+            }
         }
         public void Draw(Graphics g, bool allix, int pt, float x, float y)
         {

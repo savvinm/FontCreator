@@ -13,14 +13,12 @@ namespace Task_6
         MyPoint P2;
         MyPoint P3;
         MyPoint P4;
-        bool Current;
         public Bezie(MyPoint p1, MyPoint p2, MyPoint p3, MyPoint p4)
         {
             P1 = p1;
             P2 = p2;
             P3 = p3;
             P4 = p4;
-            Current = false;
         }
         public void PointByIndex(int n, MyPoint p)
         {
@@ -58,9 +56,6 @@ namespace Task_6
                 g.DrawLine(Pens.Silver, sc.II(P1.X) * pt + x, sc.JJ(P1.Y) * pt + y, sc.II(P2.X) * pt + x, sc.JJ(P2.Y) * pt + y);
                 g.DrawLine(Pens.Silver, sc.II(P3.X) * pt + x, sc.JJ(P3.Y) * pt + y, sc.II(P4.X) * pt + x, sc.JJ(P4.Y) * pt + y);
             }
-            if (Current)
-                g.DrawLines(Pens.Red, result);
-            else
                 g.DrawLines(Pens.Black, result);
         }
         public List<MyPoint> GetPoints()
@@ -102,8 +97,9 @@ namespace Task_6
             double Y = c0 * (-P1.Y * pt + y) + c1 * (-P2.Y * pt + y) + c2 * (-P3.Y * pt + y) + c3 * (-P4.Y * pt + y);
             return new PointF((float)X, (float)Y);
         }
-        public void Draw(Graphics g, bool allix, ScreenConverter sc)
+        public void Draw(Graphics g, bool current, Color color, bool allix, ScreenConverter sc)
         {
+            Pen p = new Pen(color);
             float t = 0f;
             float dt = 0.01f;
             PointF[] result = new PointF[101];
@@ -112,15 +108,21 @@ namespace Task_6
                 result[i] = B(t, sc);
                 t += dt;
             }
-            if (allix)
+            if (allix && current)
             {
                 g.DrawLine(Pens.Silver, sc.II(P1.X), sc.JJ(P1.Y), sc.II(P2.X), sc.JJ(P2.Y));
                 g.DrawLine(Pens.Silver, sc.II(P3.X), sc.JJ(P3.Y), sc.II(P4.X), sc.JJ(P4.Y));
             }
-            if (Current)
-                g.DrawLines(Pens.Red, result);
+            if (current)
+            {
+                p.Color = Color.Black;
+                g.DrawLines(p, result);
+            }
             else
-                g.DrawLines(Pens.Black, result);
+            {
+                p.Color = Color.FromArgb(220, Color.DarkSlateGray);
+                g.DrawLines(p, result);
+            }
             
         }
         public void Draw(Graphics g, bool allix, int pt, float x, float y)
@@ -139,9 +141,6 @@ namespace Task_6
                 g.DrawLine(Pens.Silver, (float)(P1.X * pt + x), (float)(P1.Y * pt + y), (float)(P2.X * pt + x), (float)(P2.Y * pt + y));
                 g.DrawLine(Pens.Silver, (float)(P3.X * pt + x), (float)(P3.Y * pt + y), (float)(P4.X * pt + x), (float)(P4.Y * pt + y));
             }
-            if (Current)
-                g.DrawLines(Pens.Red, result);
-            else
                 g.DrawLines(Pens.Black, result);
 
         }

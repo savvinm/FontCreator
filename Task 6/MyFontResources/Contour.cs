@@ -16,10 +16,12 @@ namespace Task_6
             lines = l;
             myPoints = new List<MyPoint>();
         }
+        public bool Current;
         public Contour()
         {
             lines = new List<ILine>();
             myPoints = new List<MyPoint>();
+            Current = false;
         }
         public List<MyPoint> GetPoints()
         {
@@ -47,9 +49,9 @@ namespace Task_6
         public void Draw(Graphics g, bool allix, bool coord, ScreenConverter sc)
         {
             foreach (MyPoint p in myPoints)
-                p.Draw(g, allix, coord, sc);
+                p.Draw(g, Current, allix, coord, sc);
             foreach (ILine l in lines)
-                l.Draw(g, allix, sc);
+                l.Draw(g, Current, Color.Black, allix, sc);
         }
         public void Draw(Graphics g, bool allix, int pt, float x, float y)
         {

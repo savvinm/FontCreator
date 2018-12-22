@@ -52,8 +52,15 @@
             this.DeleteContourButton = new System.Windows.Forms.Button();
             this.DeleteSymbolButton = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.BezieRadioButton = new System.Windows.Forms.RadioButton();
+            this.LineRadioButton = new System.Windows.Forms.RadioButton();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.LastLineRadioButton = new System.Windows.Forms.RadioButton();
+            this.LastBezierRadioButton = new System.Windows.Forms.RadioButton();
+            this.CloseContourButton = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // AddLineButton
@@ -64,6 +71,7 @@
             this.AddLineButton.TabIndex = 0;
             this.AddLineButton.Text = "Line";
             this.AddLineButton.UseVisualStyleBackColor = true;
+            this.AddLineButton.Visible = false;
             this.AddLineButton.Click += new System.EventHandler(this.AddLineButton_Click);
             // 
             // AddCurveButton
@@ -74,6 +82,7 @@
             this.AddCurveButton.TabIndex = 1;
             this.AddCurveButton.Text = "Bezier";
             this.AddCurveButton.UseVisualStyleBackColor = true;
+            this.AddCurveButton.Visible = false;
             this.AddCurveButton.Click += new System.EventHandler(this.AddCurveButton_Click);
             // 
             // WorkPanel
@@ -272,6 +281,10 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.CloseContourButton);
+            this.groupBox1.Controls.Add(this.groupBox2);
+            this.groupBox1.Controls.Add(this.BezieRadioButton);
+            this.groupBox1.Controls.Add(this.LineRadioButton);
             this.groupBox1.Controls.Add(this.DeleteContourButton);
             this.groupBox1.Controls.Add(this.CoordTextBox);
             this.groupBox1.Controls.Add(this.DeleteSymbolButton);
@@ -293,6 +306,77 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Font redactor";
             // 
+            // BezieRadioButton
+            // 
+            this.BezieRadioButton.AutoSize = true;
+            this.BezieRadioButton.Location = new System.Drawing.Point(257, 269);
+            this.BezieRadioButton.Name = "BezieRadioButton";
+            this.BezieRadioButton.Size = new System.Drawing.Size(64, 21);
+            this.BezieRadioButton.TabIndex = 18;
+            this.BezieRadioButton.Text = "Bezie";
+            this.BezieRadioButton.UseVisualStyleBackColor = true;
+            this.BezieRadioButton.CheckedChanged += new System.EventHandler(this.RadioButton_CheckedChanged);
+            // 
+            // LineRadioButton
+            // 
+            this.LineRadioButton.AutoSize = true;
+            this.LineRadioButton.Checked = true;
+            this.LineRadioButton.Location = new System.Drawing.Point(257, 243);
+            this.LineRadioButton.Name = "LineRadioButton";
+            this.LineRadioButton.Size = new System.Drawing.Size(51, 21);
+            this.LineRadioButton.TabIndex = 17;
+            this.LineRadioButton.TabStop = true;
+            this.LineRadioButton.Text = "Line";
+            this.LineRadioButton.UseCompatibleTextRendering = true;
+            this.LineRadioButton.UseVisualStyleBackColor = true;
+            this.LineRadioButton.CheckedChanged += new System.EventHandler(this.RadioButton_CheckedChanged);
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.LastBezierRadioButton);
+            this.groupBox2.Controls.Add(this.LastLineRadioButton);
+            this.groupBox2.Location = new System.Drawing.Point(11, 295);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(120, 100);
+            this.groupBox2.TabIndex = 19;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Last line";
+            // 
+            // LastLineRadioButton
+            // 
+            this.LastLineRadioButton.AutoSize = true;
+            this.LastLineRadioButton.Checked = true;
+            this.LastLineRadioButton.Location = new System.Drawing.Point(7, 22);
+            this.LastLineRadioButton.Name = "LastLineRadioButton";
+            this.LastLineRadioButton.Size = new System.Drawing.Size(56, 21);
+            this.LastLineRadioButton.TabIndex = 0;
+            this.LastLineRadioButton.TabStop = true;
+            this.LastLineRadioButton.Text = "Line";
+            this.LastLineRadioButton.UseVisualStyleBackColor = true;
+            this.LastLineRadioButton.CheckedChanged += new System.EventHandler(this.LastRadioButton_CheckedChanged);
+            // 
+            // LastBezierRadioButton
+            // 
+            this.LastBezierRadioButton.AutoSize = true;
+            this.LastBezierRadioButton.Location = new System.Drawing.Point(7, 51);
+            this.LastBezierRadioButton.Name = "LastBezierRadioButton";
+            this.LastBezierRadioButton.Size = new System.Drawing.Size(69, 21);
+            this.LastBezierRadioButton.TabIndex = 1;
+            this.LastBezierRadioButton.Text = "Bezier";
+            this.LastBezierRadioButton.UseVisualStyleBackColor = true;
+            this.LastBezierRadioButton.CheckedChanged += new System.EventHandler(this.LastRadioButton_CheckedChanged);
+            // 
+            // CloseContourButton
+            // 
+            this.CloseContourButton.Location = new System.Drawing.Point(137, 431);
+            this.CloseContourButton.Name = "CloseContourButton";
+            this.CloseContourButton.Size = new System.Drawing.Size(80, 53);
+            this.CloseContourButton.TabIndex = 20;
+            this.CloseContourButton.Text = "Close contour";
+            this.CloseContourButton.UseVisualStyleBackColor = true;
+            this.CloseContourButton.Visible = false;
+            this.CloseContourButton.Click += new System.EventHandler(this.CloseContourButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -307,6 +391,8 @@
             this.menuStrip1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -338,6 +424,12 @@
         private System.Windows.Forms.Button DeleteContourButton;
         private System.Windows.Forms.Button DeleteSymbolButton;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.RadioButton BezieRadioButton;
+        private System.Windows.Forms.RadioButton LineRadioButton;
+        private System.Windows.Forms.Button CloseContourButton;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.RadioButton LastBezierRadioButton;
+        private System.Windows.Forms.RadioButton LastLineRadioButton;
     }
 }
 

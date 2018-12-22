@@ -12,6 +12,7 @@ namespace Task_6
         public double X;
         public double Y;
         public bool Current;
+        public bool First;
         public MyPoint(PointF p)
         {
             X = p.X;
@@ -30,20 +31,34 @@ namespace Task_6
             Y = 0;
             Current = false;
         }
-        public void Draw(Graphics g, bool allix, bool coord, ScreenConverter sc)
+        public void Draw(Graphics g, bool curCont, bool allix, bool coord, ScreenConverter sc)
         {
+            Pen p = new Pen(Brushes.Black);
             if (!allix)
                 return;
             if (coord)
             {
                 string s = "(" + sc.II(X) + ";" + sc.JJ(Y) + ")";
-                Brush b = new SolidBrush(Color.FromArgb(60, Color.Black));
-                g.DrawString(s, new Font("Courier", 8), b, sc.II(X) + 4, sc.JJ(Y) - 1);
+                Brush b = new SolidBrush(Color.White);
+                if (curCont)
+                {
+                    b = new SolidBrush(Color.FromArgb(60, Color.Black));
+                }
+                else
+
+                    b = new SolidBrush(Color.FromArgb(60, Color.Silver));
+                if (curCont)
+                    g.DrawString(s, new Font("Courier", 8), b, sc.II(X) + 4, sc.JJ(Y) - 1);
             }
+            if (curCont)
+                p.Color = Color.Black;
             if (Current)
-                g.DrawEllipse(Pens.Red, sc.II(X) - 3, sc.JJ(Y) - 3, 6, 6);
-            else
-                g.DrawEllipse(Pens.Black, sc.II(X) - 3, sc.JJ(Y) - 3, 6, 6);
+                p.Color = Color.Red;
+            if (!curCont && !Current)
+                p.Color = Color.FromArgb(180, Color.DarkSlateGray);
+            if (First)
+                p.Color = Color.Blue;
+            g.DrawEllipse(p, sc.II(X) - 3, sc.JJ(Y) - 3, 6, 6);
         }
     }
 }
