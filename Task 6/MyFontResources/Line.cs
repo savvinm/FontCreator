@@ -36,6 +36,10 @@ namespace Task_6
         {
             return new List<MyPoint>();
         }
+        public bool TypeEqualTo(ILine l)
+        {
+            return l.GetSecondPoints().Count == 0;
+        }
         public bool EqualTo(ILine l)
         {
             if (l.GetSecondPoints().Count > 0)

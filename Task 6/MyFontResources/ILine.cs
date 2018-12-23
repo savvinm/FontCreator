@@ -15,6 +15,7 @@ namespace Task_6
         List<MyPoint> GetSecondPoints();
         string ToString();
         bool EqualTo(ILine l);
+        bool TypeEqualTo(ILine l);
         List<MyPoint> GetPoints();
         void PointByIndex(int n, MyPoint p);
     }

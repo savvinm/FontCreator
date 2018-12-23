@@ -31,6 +31,10 @@ namespace Task_6
             if (n == 3)
                 P4 = p;
         }
+        public bool TypeEqualTo(ILine l)
+        {
+            return (l.GetSecondPoints().Count == 2);
+        }
         public bool EqualTo(ILine l)
         {
             if (l.GetSecondPoints().Count != 2)
