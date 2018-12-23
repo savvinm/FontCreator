@@ -12,8 +12,13 @@ namespace Task_6
         {
             double dx = Math.Abs(p1.X - p2.X)/4;
             double dy = Math.Abs(p1.Y - p2.Y)/4;
-            MyPoint p3 = new MyPoint(p1.X + dx, p1.Y + dy);
-            MyPoint p4 = new MyPoint(p2.X - dx, p2.Y - dy);
+            double x = 0, y = 0;
+            x = (p1.X + p2.X * (1f / 3f)) / (1 + (1f / 3f));
+            y = (p1.Y + p2.Y * (1f / 3f)) / (1 + (1f / 3f));
+            MyPoint p3 = new MyPoint(x, y);
+            x = (p1.X + p2.X * 3) / (1 + 3);
+            y = (p1.Y + p2.Y * 3) / (1 + 3);
+            MyPoint p4 = new MyPoint(x, y);
             points.Add(p3);
             points.Add(p4);
             return new Bezie(p1, p3, p4, p2);

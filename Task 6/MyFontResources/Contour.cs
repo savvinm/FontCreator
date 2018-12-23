@@ -17,6 +17,7 @@ namespace Task_6
             myPoints = new List<MyPoint>();
         }
         public bool Current;
+        public bool closed;
         public Contour()
         {
             lines = new List<ILine>();

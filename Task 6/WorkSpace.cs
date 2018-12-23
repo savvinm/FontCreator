@@ -19,10 +19,11 @@ namespace Task_6
         MyPoint lastPoint;
         List<MyPoint> myPoints;
         MyPoint curPoint;
+        MyPoint firstPoint;
         bool allix;
         bool AllSymbol;
         bool coord;
-        bool closed;
+       // bool closed;
         public WorkSpace(int w, int h)
         {
             Height = h;
@@ -94,7 +95,7 @@ namespace Task_6
                     foreach (Contour c in curSymbol.contours)
                         c.Current = false;
                 curSymbol = font.symbols[n];
-                closed = false;
+                //closed = false;
             }
         }
         public void ChooseContour(int n)
@@ -113,7 +114,9 @@ namespace Task_6
                 curContour.Current = true;
                 myPoints = curContour.myPoints;
                 curSymbol.contours[n].Current = true;
-                closed = false;
+                lastPoint = null;
+                //closed = false;
+                firstPoint = null;
             }
         }
         public void AddSymbol(char s)
@@ -127,9 +130,11 @@ namespace Task_6
         }
         public void CloseContour(ILIneFactory factory)
         {
-            if (myPoints.Count >=3)
-            lines.Add(factory.Create(lastPoint, myPoints[0], myPoints));
-            closed = true;
+            //if (myPoints.Count >= 3)
+                //if (closed)
+                  //  lines.RemoveAt(lines.Count - 1);
+            lines.Add(factory.Create(lastPoint, firstPoint, myPoints));
+            //closed = true;
         }
         public void CheckAllix(bool all)
         {
@@ -220,21 +225,23 @@ namespace Task_6
                         myPoints.Add(new MyPoint(sc.XX((int)p.X), sc.YY((int)p.Y)));
                         if (myPoints.Count == 1)
                             myPoints[0].First = true;
+                        if (firstPoint == null)
+                            firstPoint = myPoints.Last();
                         lastPoint = myPoints.Last();
                     }
                     else
                     {
-                        if (closed)
+                        if (lines.Count >=2)
                             lines.RemoveAt(lines.Count - 1);
                         MyPoint curP = new MyPoint(sc.XX((int)p.X), sc.YY((int)p.Y));
                         lines.Add(factory.Create(lastPoint, curP, myPoints));
                         myPoints.Add(curP);
                         lastPoint = myPoints.Last();
                     }
-                    if (myPoints.Count >= 3)
+                    if (lines.Count >= 2)
                     {
                         CloseContour(fact);
-                        closed = true;
+                        //closed = true;
                     }
                 }
             }
@@ -257,10 +264,72 @@ namespace Task_6
                 lastPoint = null;
             }
         }
+        private void RemoveLines()
+        {
+            for (int i = 0; i < lines.Count; i++)
+            {
+                for (int j = i+1; j < lines.Count; j++)
+                {
+                    if (lines[i].EqualTo(lines[j]))
+                    {
+                        lines.RemoveAt(j);
+                        j--;
+                    }
+                }
+            }
+        }
         public void DeletePoints(ILIneFactory factory)
         {
+            for(int i = 0; i < myPoints.Count; i++)
+            {
+                bool del = false;
+                if (myPoints[i].Current)
+                {
+                    for (int j = 0; j < lines.Count; j++)
+                    {
+                        del = false;
+                        foreach (MyPoint p in lines[j].GetPoints())
+                        {
+                            if (p.X == myPoints[i].X && p.Y == myPoints[i].Y)
+                            {
+                                //myPoints.RemoveAt(i);
+                                del = true;
+                            }
+                        }
+                        if (del)
+                        {
+                            if (i < myPoints.Count - 1 && i >=1)
+                                lines[j] = (factory.Create(myPoints[i - 1], myPoints[i + 1], myPoints));
+                            if(i == myPoints.Count -1)
+                            {
+                                lines.RemoveAt(j);
+                                    j--;
+                            }
+                            if (i == 0)
+                            {
+                                lines.RemoveAt(j);
+                                j--;
+                            }
+                            RemoveLines();
+                            /*lines.RemoveAt(j);
+                            j--;*/
+                        }
+                    }
+                    /*if (del)
+                        lines.Add(factory.Create(myPoints[i - 1], myPoints[i + 1], myPoints));*/
+                    if (myPoints[i].First)
+                    {
+                        myPoints[i + 1].First = true;
+                        firstPoint = myPoints[i + 1];
+                    }
+                    myPoints.RemoveAt(i);
+                    i--;
+                }
+            }
+            /*if (myPoints.Last().Current)
+                myPoints.RemoveAt(myPoints.Count - 1);*/
             currpoints.Clear();
-            int i = 0;
+            /*int i = 0;
             while (i < myPoints.Count)
             {
                 if (myPoints[i].Current)
@@ -285,7 +354,7 @@ namespace Task_6
                     lines.Add(factory.Create(myPoints[i-1], myPoints[i], myPoints));
                 }
                 i++;
-            }
+            }*/
             /*for (int i = 0; i < myPoints.Count; i++)
             {
                 int n = 0;
@@ -308,6 +377,8 @@ namespace Task_6
                     i--;
                 }
             }*/
+            if (myPoints.Count >= 3)
+                lines.RemoveAt(lines.Count - 1);
             lastPoint = myPoints.Last();
             CloseContour(factory);
            // CheckPoints();
