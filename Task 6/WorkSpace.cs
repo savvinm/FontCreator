@@ -137,12 +137,18 @@ namespace Task_6
         public void CloseContour(ILIneFactory factory)
         {
             RemoveLines();
-            if (curContour.myPoints.Count >= 3)
+            if (curContour.myPoints.Count == 2)
+            {
+                if (curContour.lines.Count > 1)
+                    RemoveLastLine();
+                curContour.lines.Add(factory.Create(lastPoint, firstPoint));
+            }
+            if (curContour.myPoints.Count > 2)
             {
                 RemoveLastLine();
                 curContour.lines.Add(factory.Create(lastPoint, firstPoint));
-                RemoveLines();
             }
+            RemoveLines();
         }
         public void CheckAllix(bool all)
         {
@@ -201,17 +207,15 @@ namespace Task_6
                     }
                     else
                     {
-                        if (curContour.lines.Count > 2)
+                        if (curContour.myPoints.Count >= 2)
                             RemoveLastLine();
                         MyPoint curP = new MyPoint(sc.XX((int)p.X), sc.YY((int)p.Y));
                         curContour.lines.Add(factory.Create(lastPoint, curP));
                         curContour.myPoints.Add(curP);
                         lastPoint = curContour.myPoints.Last();
                     }
-                    if (curContour.lines.Count >= 2)
-                    {
+                    if (curContour.myPoints.Count >= 2)
                         CloseContour(fact);
-                    }
                 }
             }
         }
@@ -296,7 +300,7 @@ namespace Task_6
         }
         private void DeletePoint(ILIneFactory factory, int n)
         {
-            for (int i = 0; i < curContour.lines.Count; i++)
+            /*for (int i = 0; i < curContour.lines.Count; i++)
             {
                 foreach(MyPoint p in curContour.lines[i].GetPoints())
                 {
@@ -307,7 +311,14 @@ namespace Task_6
                         break;
                     }
                 }
-            }
+            }*/
+            //int i = n / 2;
+
+            curContour.lines.RemoveAt(n);
+            int i = n - 1 >= 0 ? n - 1 : curContour.lines.Count - 1;
+            // curContour.lines.RemoveAt(i);
+            curContour.lines[i] = factory.Create(curContour.myPoints[n - 1 >= 0 ? n - 1 : curContour.myPoints.Count - n - 1],
+                            curContour.myPoints[curContour.myPoints.Count > n + 1 ? n + 1 : n + 1 - curContour.myPoints.Count]);
             curContour.myPoints.RemoveAt(n);
         }
         private int SearchMyPoint(PointF p, ScreenConverter sc)

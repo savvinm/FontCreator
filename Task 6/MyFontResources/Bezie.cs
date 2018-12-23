@@ -33,11 +33,13 @@ namespace Task_6
         }
         public bool EqualTo(ILine l)
         {
+            if (l.GetSecondPoints().Count != 2)
+                return false;
             List<MyPoint> p = l.GetPoints();
             if (p.Count != 4)
                 return false;
-            if (p[0].X == P1.X && p[0].Y == P1.Y && p[1].X == P2.X && p[1].Y == P2.Y
-                && p[2].X == P3.X && p[2].Y == P3.Y && p[3].X == P4.X && p[3].Y == P4.Y)
+            if (p[0].X == P1.X && p[0].Y == P1.Y && l.GetSecondPoints()[0].X == P2.X && l.GetSecondPoints()[0].Y == P2.Y
+                && l.GetSecondPoints()[1].X == P3.X && l.GetSecondPoints()[1].Y == P3.Y && p[2].X == P4.X && p[2].Y == P4.Y)
                 return true;
             return false;
         }

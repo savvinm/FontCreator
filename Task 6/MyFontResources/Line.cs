@@ -38,6 +38,8 @@ namespace Task_6
         }
         public bool EqualTo(ILine l)
         {
+            if (l.GetSecondPoints().Count > 0)
+                return false;
             List<MyPoint> p = l.GetPoints();
             if (p.Count != 2 || p[0] == null || p[1] == null)
                 return false;
