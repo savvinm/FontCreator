@@ -232,7 +232,7 @@ namespace Task_6
                     }
                     else
                     {
-                        if (lines.Count >= 2)
+                        if (lines.Count > 2)
                             RemoveLastLine();
                             //lines.RemoveAt(lines.Count - 1);
                         MyPoint curP = new MyPoint(sc.XX((int)p.X), sc.YY((int)p.Y));
@@ -265,6 +265,22 @@ namespace Task_6
                 curContour = null;
                 lastPoint = null;
             }
+        }
+        private void UpdatePointList()
+        {
+            MyPoint cur = new MyPoint();
+            List<MyPoint> points = new List<MyPoint>();
+            /*foreach(ILine l in lines)
+            {
+                List<MyPoint> po = l.GetPoints()
+                foreach (MyPoint p in po)
+                {
+                    if(po.Count == 2)
+                    {
+                        if ()
+                    }
+                }
+            }*/
         }
         private void RemoveLastLine()
         {
@@ -312,13 +328,13 @@ namespace Task_6
                         }
                         if (del)
                         {
-                            if (j < lines.Count -1)
+                            if (j < lines.Count)
                             {
                                 if (i + 1 < myPoints.Count && i - 1 >=0)
                                     lines[j] = factory.Create(myPoints[i - 1], myPoints[i + 1], myPoints);
-                                if (i - 1 <= 0)
+                                if (i - 1 <= 0 && i + 1 < myPoints.Count)
                                     lines[j] = factory.Create(myPoints.Last(), myPoints[i + 1], myPoints);
-                                if( i + 1 >= myPoints.Count)
+                                if( i + 1 >= myPoints.Count && i - 1 >=0)
                                     lines[j] = factory.Create(myPoints[i - 1], myPoints[0], myPoints);
                                 continue;
                             }
