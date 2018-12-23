@@ -61,13 +61,13 @@ namespace Task_6
             for (int i = 0; i < pnt.Count; i++)
             {
                 foreach (MyPoint p in points)
-                    if (pnt[i].X == p.X && pnt[i].Y == p.Y)
+                    if (pnt[i].EqualTo(p))
                         myPoints.Add(p);
             }
-            if (pnt.Count == 2)
+            if (l.GetSecondPoints().Count == 0)
                 return new Line(myPoints[0], myPoints[1]);
-            if (pnt.Count == 4)
-                return new Bezie(myPoints[0], myPoints[1], myPoints[2], myPoints[3]);
+            if (l.GetSecondPoints().Count == 2)
+                return new Bezie(myPoints[0], l.GetSecondPoints()[0], l.GetSecondPoints()[1], myPoints[1]);
             else
                 throw new Exception("");
         }

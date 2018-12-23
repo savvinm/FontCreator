@@ -39,6 +39,8 @@ namespace Task_6
                         j++;
                 }
             }
+            if (myPoints.Count > 0)
+                myPoints[0].First = true;
             return myPoints;
         }
         public void Draw(Graphics g, bool allix, int pt, float x, float y, ScreenConverter sc)

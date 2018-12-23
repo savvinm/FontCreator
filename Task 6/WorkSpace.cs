@@ -111,8 +111,18 @@ namespace Task_6
                     foreach (MyPoint p in curContour.GetPoints())
                         if (p.First)
                             firstPoint = p;
-                    lastPoint = curContour.GetPoints().Last();
+                    GetLastPoint();
                 }
+            }
+        }
+        private void GetLastPoint()
+        {
+            foreach(ILine l in curContour.lines)
+            {
+                if (l.GetPoints()[1] == firstPoint)
+                    lastPoint = l.GetPoints()[0];
+                if (l.GetPoints()[0] == firstPoint)
+                    lastPoint = l.GetPoints()[1];
             }
         }
         public void AddSymbol(char s)

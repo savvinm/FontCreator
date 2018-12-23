@@ -56,7 +56,6 @@ namespace Task_6
             }
             if (curCont)
                 p.Color = Color.Black;
-            
             if (!curCont && !Current)
                 p.Color = Color.FromArgb(180, Color.DarkSlateGray);
             if (First)
