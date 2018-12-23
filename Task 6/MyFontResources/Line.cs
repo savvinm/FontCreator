@@ -32,10 +32,14 @@ namespace Task_6
             points.Add(P2);
             return points;
         }
+        public List<MyPoint> GetSecondPoints()
+        {
+            return new List<MyPoint>();
+        }
         public bool EqualTo(ILine l)
         {
             List<MyPoint> p = l.GetPoints();
-            if (p.Count != 2)
+            if (p.Count != 2 || p[0] == null || p[1] == null)
                 return false;
             if (p[0].X == P1.X && p[0].Y == P1.Y && p[1].X == P2.X && p[1].Y == P2.Y)
                 return true;
@@ -48,7 +52,7 @@ namespace Task_6
             else
                 g.DrawLine(Pens.Black, sc.II(P1.X) * pt + x, sc.JJ(P1.Y) * pt + y, sc.II(P2.X) * pt + x, sc.JJ(P2.Y) * pt + y);
         }
-        public void Draw(Graphics g, bool current, Color color, bool allix, ScreenConverter sc)
+        public void Draw(Graphics g, bool current, Color color, bool allix, bool coord, ScreenConverter sc)
         {
             Pen p = new Pen(color);
             if (current)

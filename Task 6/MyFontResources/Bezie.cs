@@ -62,9 +62,14 @@ namespace Task_6
         {
             List<MyPoint> points = new List<MyPoint>();
             points.Add(P1);
+            points.Add(P4);
+            return points;
+        }
+        public List<MyPoint> GetSecondPoints()
+        {
+            List<MyPoint> points = new List<MyPoint>();
             points.Add(P2);
             points.Add(P3);
-            points.Add(P4);
             return points;
         }
         private PointF B(float t, ScreenConverter sc)
@@ -97,7 +102,7 @@ namespace Task_6
             double Y = c0 * (-P1.Y * pt + y) + c1 * (-P2.Y * pt + y) + c2 * (-P3.Y * pt + y) + c3 * (-P4.Y * pt + y);
             return new PointF((float)X, (float)Y);
         }
-        public void Draw(Graphics g, bool current, Color color, bool allix, ScreenConverter sc)
+        public void Draw(Graphics g, bool current, Color color, bool allix, bool coord, ScreenConverter sc)
         {
             Pen p = new Pen(color);
             float t = 0f;
@@ -112,6 +117,8 @@ namespace Task_6
             {
                 g.DrawLine(Pens.Silver, sc.II(P1.X), sc.JJ(P1.Y), sc.II(P2.X), sc.JJ(P2.Y));
                 g.DrawLine(Pens.Silver, sc.II(P3.X), sc.JJ(P3.Y), sc.II(P4.X), sc.JJ(P4.Y));
+                P2.Draw(g, current, allix, coord, sc);
+                P3.Draw(g, current, allix, coord, sc);
             }
             if (current)
             {

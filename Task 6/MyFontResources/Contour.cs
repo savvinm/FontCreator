@@ -17,7 +17,6 @@ namespace Task_6
             myPoints = new List<MyPoint>();
         }
         public bool Current;
-        public bool closed;
         public Contour()
         {
             lines = new List<ILine>();
@@ -52,7 +51,7 @@ namespace Task_6
             foreach (MyPoint p in myPoints)
                 p.Draw(g, Current, allix, coord, sc);
             foreach (ILine l in lines)
-                l.Draw(g, Current, Color.Black, allix, sc);
+                l.Draw(g, Current, Color.Black, allix, coord, sc);
         }
         public void Draw(Graphics g, bool allix, int pt, float x, float y)
         {

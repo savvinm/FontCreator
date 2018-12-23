@@ -56,12 +56,13 @@ namespace Task_6
             }
             if (curCont)
                 p.Color = Color.Black;
-            if (Current)
-                p.Color = Color.Red;
+            
             if (!curCont && !Current)
                 p.Color = Color.FromArgb(180, Color.DarkSlateGray);
             if (First)
                 p.Color = Color.Blue;
+            if (Current)
+                p.Color = Color.Red;
             g.DrawEllipse(p, sc.II(X) - 3, sc.JJ(Y) - 3, 6, 6);
         }
     }

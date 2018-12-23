@@ -33,7 +33,7 @@ namespace Task_6
         }
         private void AddLineButton_Click(object sender, EventArgs e)
         {
-            workSpace.AddLine();
+            //workSpace.AddLine();
             WorkPanel.Invalidate();
         }
 
@@ -59,7 +59,7 @@ namespace Task_6
 
         private void AddCurveButton_Click(object sender, EventArgs e)
         {
-            workSpace.AddCurve();
+            //workSpace.AddCurve();
             WorkPanel.Invalidate();
         }
 
@@ -84,7 +84,7 @@ namespace Task_6
 
         private void DeleteButton_Click(object sender, EventArgs e)
         {
-            workSpace.DeletePoints(fact);
+            workSpace.DeletePoints(factory, fact);
             WorkPanel.Invalidate();
         }
 
@@ -227,6 +227,8 @@ namespace Task_6
                 fact = new LineFactory();
             if (LastBezierRadioButton.Checked)
                 fact = new BezieFactory();
+            workSpace.CloseContour(fact);
+            WorkPanel.Invalidate();
         }
 
         private void CloseContourButton_Click(object sender, EventArgs e)

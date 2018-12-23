@@ -8,6 +8,6 @@ namespace Task_6
 {
     public interface ILIneFactory
     {
-        ILine Create(MyPoint p1, MyPoint p2, List<MyPoint> points);
+        ILine Create(MyPoint p1, MyPoint p2);
     }
 }

@@ -9,9 +9,10 @@ namespace Task_6
 {
     public interface ILine
     {
-        void Draw(Graphics g, bool current, Color color, bool allix, ScreenConverter sc);
+        void Draw(Graphics g, bool current, Color color, bool allix, bool coord, ScreenConverter sc);
         void Draw(Graphics g, bool allix, int pt, float x, float y);
         void Draw(Graphics g, bool allix, int pt, float x, float y, ScreenConverter sc);
+        List<MyPoint> GetSecondPoints();
         string ToString();
         bool EqualTo(ILine l);
         List<MyPoint> GetPoints();

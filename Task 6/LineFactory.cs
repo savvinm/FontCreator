@@ -8,7 +8,7 @@ namespace Task_6
 {
     class LineFactory :ILIneFactory
     {
-        public ILine Create(MyPoint p1, MyPoint p2, List<MyPoint> points)
+        public ILine Create(MyPoint p1, MyPoint p2)
         {
             return new Line(p1, p2);
         }
