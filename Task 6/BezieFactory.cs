@@ -10,8 +10,6 @@ namespace Task_6
     {
         public ILine Create(MyPoint p1, MyPoint p2, List<MyPoint> points)
         {
-            double dx = Math.Abs(p1.X - p2.X)/4;
-            double dy = Math.Abs(p1.Y - p2.Y)/4;
             double x = 0, y = 0;
             x = (p1.X + p2.X * (1f / 3f)) / (1 + (1f / 3f));
             y = (p1.Y + p2.Y * (1f / 3f)) / (1 + (1f / 3f));

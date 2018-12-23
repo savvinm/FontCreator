@@ -31,6 +31,10 @@ namespace Task_6
             Y = 0;
             Current = false;
         }
+        public bool EqualTo(MyPoint p)
+        {
+            return (p.X == X && p.Y == Y); 
+        }
         public void Draw(Graphics g, bool curCont, bool allix, bool coord, ScreenConverter sc)
         {
             Pen p = new Pen(Brushes.Black);

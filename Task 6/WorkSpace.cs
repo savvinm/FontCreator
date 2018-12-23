@@ -134,6 +134,7 @@ namespace Task_6
                 //if (closed)
                   //  lines.RemoveAt(lines.Count - 1);
             lines.Add(factory.Create(lastPoint, firstPoint, myPoints));
+            RemoveLines();
             //closed = true;
         }
         public void CheckAllix(bool all)
@@ -231,8 +232,9 @@ namespace Task_6
                     }
                     else
                     {
-                        if (lines.Count >=2)
-                            lines.RemoveAt(lines.Count - 1);
+                        if (lines.Count >= 2)
+                            RemoveLastLine();
+                            //lines.RemoveAt(lines.Count - 1);
                         MyPoint curP = new MyPoint(sc.XX((int)p.X), sc.YY((int)p.Y));
                         lines.Add(factory.Create(lastPoint, curP, myPoints));
                         myPoints.Add(curP);
@@ -262,6 +264,18 @@ namespace Task_6
                 curSymbol.contours.RemoveAt(n);
                 curContour = null;
                 lastPoint = null;
+            }
+        }
+        private void RemoveLastLine()
+        {
+            for (int j = 0; j < lines.Count; j++)
+            {
+                List<MyPoint> p = lines[j].GetPoints();
+                if (p[0].EqualTo(lastPoint) && p[1].EqualTo(firstPoint))
+                {
+                    lines.RemoveAt(j);
+                    j--;
+                }
             }
         }
         private void RemoveLines()
@@ -298,34 +312,43 @@ namespace Task_6
                         }
                         if (del)
                         {
-                            if (i < myPoints.Count - 1 && i >=1)
-                                lines[j] = (factory.Create(myPoints[i - 1], myPoints[i + 1], myPoints));
-                            if(i == myPoints.Count -1)
+                            if (j < lines.Count -1)
+                            {
+                                if (i + 1 < myPoints.Count && i - 1 >=0)
+                                    lines[j] = factory.Create(myPoints[i - 1], myPoints[i + 1], myPoints);
+                                if (i - 1 <= 0)
+                                    lines[j] = factory.Create(myPoints.Last(), myPoints[i + 1], myPoints);
+                                if( i + 1 >= myPoints.Count)
+                                    lines[j] = factory.Create(myPoints[i - 1], myPoints[0], myPoints);
+                                continue;
+                            }
+                            /*if(j == lines.Count -1)
                             {
                                 lines.RemoveAt(j);
                                     j--;
-                            }
-                            if (i == 0)
+                            }*/
+                            /*if (j == 0)
                             {
                                 lines.RemoveAt(j);
                                 j--;
-                            }
-                            RemoveLines();
+                            }*/
+                           // RemoveLines();
                             /*lines.RemoveAt(j);
                             j--;*/
                         }
                     }
                     /*if (del)
                         lines.Add(factory.Create(myPoints[i - 1], myPoints[i + 1], myPoints));*/
-                    if (myPoints[i].First)
+                    /*if (myPoints[i].First)
                     {
                         myPoints[i + 1].First = true;
                         firstPoint = myPoints[i + 1];
-                    }
+                    }*/
                     myPoints.RemoveAt(i);
                     i--;
                 }
             }
+            RemoveLines();
             /*if (myPoints.Last().Current)
                 myPoints.RemoveAt(myPoints.Count - 1);*/
             currpoints.Clear();
@@ -377,8 +400,11 @@ namespace Task_6
                     i--;
                 }
             }*/
-            if (myPoints.Count >= 3)
-                lines.RemoveAt(lines.Count - 1);
+            if (lines.Count >= 2)
+                RemoveLastLine();
+            //lines.RemoveAt(lines.Count - 1);
+            firstPoint = myPoints[0];
+            myPoints[0].First = true;
             lastPoint = myPoints.Last();
             CloseContour(factory);
            // CheckPoints();
