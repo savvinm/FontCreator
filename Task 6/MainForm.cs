@@ -224,6 +224,7 @@ namespace Task_6
                 LoadSymbolList();
                 SYmbolList.SelectedIndex = -1;
                 ContourList.Items.Clear();
+                WidthNumericUpDown.Value = workSpace.GetWidth();
             }
             Invalidate();
         }

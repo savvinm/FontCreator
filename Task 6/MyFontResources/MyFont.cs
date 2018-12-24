@@ -29,6 +29,10 @@ namespace Task_6
             symbols = new List<Symbol>();
             symbolWidth = 100;
             StreamReader sr = new StreamReader(filename);
+            line = sr.ReadLine();
+            if (line == null)
+                return;
+            symbolWidth = Convert.ToInt32(line);
             while (true)
             {
                 line = sr.ReadLine();
@@ -78,6 +82,7 @@ namespace Task_6
         public void Save(string filename)
         {
             StreamWriter sw = new StreamWriter(filename);
+            sw.WriteLine(symbolWidth.ToString());
             foreach (Symbol s in symbols)
                 sw.WriteLine(s.ToString());
             sw.Close();
@@ -88,6 +93,10 @@ namespace Task_6
             FontInterpretator fi = new FontInterpretator();
             string line = "";
             StreamReader sr = new StreamReader(filename);
+            line = sr.ReadLine();
+            if (line == null)
+                return font;
+            
             while (true)
             {
                 line = sr.ReadLine();

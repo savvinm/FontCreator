@@ -387,6 +387,10 @@ namespace Task_6
         {
             font.symbolWidth = percent; 
         }
+        public int GetWidth()
+        {
+            return font.symbolWidth;
+        }
         public void DrawBorder(Graphics g, ScreenConverter sc)
         {
             PointF p1 = new PointF(sc.II(0), sc.JJ(0));
@@ -425,8 +429,11 @@ namespace Task_6
         }
         public void DrawAll(Graphics g, ScreenConverter sc)
         {
-            DrawLines(g);
-            DrawBorder(g, sc);
+            if (curSymbol != null)
+            {
+                DrawLines(g);
+                DrawBorder(g, sc);
+            }
             if (AllSymbol)
                 DrawSymbol(g, sc);
             else
