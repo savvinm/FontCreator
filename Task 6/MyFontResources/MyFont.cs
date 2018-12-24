@@ -11,19 +11,23 @@ namespace Task_6
     public class MyFont
     {
         public List<Symbol> symbols;
+        public int symbolWidth;
         public MyFont(int sCount)
         {
             symbols = new List<Symbol>(sCount);
+            symbolWidth = 100;
         }
         public MyFont()
         {
             symbols = new List<Symbol>();
+            symbolWidth = 100;
         }
         public MyFont(string filename)
         {
             FontInterpretator fi = new FontInterpretator();
             string line = "";
             symbols = new List<Symbol>();
+            symbolWidth = 100;
             StreamReader sr = new StreamReader(filename);
             while (true)
             {
@@ -36,7 +40,6 @@ namespace Task_6
         }
         public void DrawString(Graphics g, string s, int pt, float x, float y)
         {
-            double width = symbols[0].GetWidth();
             foreach (Char c in s)
             {
                 foreach (Symbol sym in symbols)
@@ -47,7 +50,7 @@ namespace Task_6
                         break;
                     }
                 }
-                x += (float)(width * 1.1f * pt);
+                x += symbolWidth / 100f * pt * 1.05f;
             }
         }
         public void SortSymbols()

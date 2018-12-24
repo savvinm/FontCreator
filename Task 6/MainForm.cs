@@ -73,8 +73,8 @@ namespace Task_6
             if (e.Button.HasFlag(MouseButtons.Left))
             {
                 last = e.Location;
+                workSpace.PointIn(e.Location, factory, fact, con);
             }
-            workSpace.PointIn(e.Location, factory, fact, con);
             WorkPanel.Invalidate();
         }
 
@@ -94,9 +94,18 @@ namespace Task_6
                 WorkPanel.Invalidate();
                 last = e.Location;
             }
+            if (e.Button.HasFlag(MouseButtons.Right) && !last.IsEmpty)
+            {
+                float dx = e.Location.X - last.X;
+                float dy = e.Location.Y - last.Y;
+                con.RX -= con.LR(dx);
+                con.RY += con.LR(dy);
+                WorkPanel.Invalidate();
+                last = e.Location;
+            }
             last = e.Location;
         }
-        private void MainForm_KeyDown(object sender, KeyEventArgs e)
+        /*private void MainForm_KeyDown(object sender, KeyEventArgs e)
         {
             //Focus();
             if (e.KeyData == Keys.W)
@@ -108,7 +117,7 @@ namespace Task_6
             if (e.KeyData == Keys.D)
                 con.RX += con.RWidth / 50;
             WorkPanel.Invalidate();
-        }
+        }*/
         private void WorkPanel_MouseUp(object sender, MouseEventArgs e)
         {
             if (e.Button.HasFlag(MouseButtons.Left))
@@ -267,6 +276,12 @@ namespace Task_6
         private void CloseContourButton_Click(object sender, EventArgs e)
         {
             workSpace.CloseContour(fact);
+            WorkPanel.Invalidate();
+        }
+
+        private void WidthNumericUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            workSpace.ChangeWidth((int)WidthNumericUpDown.Value);
             WorkPanel.Invalidate();
         }
     }

@@ -58,9 +58,12 @@
             this.LastLineRadioButton = new System.Windows.Forms.RadioButton();
             this.BezieRadioButton = new System.Windows.Forms.RadioButton();
             this.LineRadioButton = new System.Windows.Forms.RadioButton();
+            this.WidthNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.label1 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.WidthNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // AddLineButton
@@ -281,6 +284,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.WidthNumericUpDown);
             this.groupBox1.Controls.Add(this.CloseContourButton);
             this.groupBox1.Controls.Add(this.groupBox2);
             this.groupBox1.Controls.Add(this.BezieRadioButton);
@@ -321,7 +326,7 @@
             // 
             this.groupBox2.Controls.Add(this.LastBezierRadioButton);
             this.groupBox2.Controls.Add(this.LastLineRadioButton);
-            this.groupBox2.Location = new System.Drawing.Point(11, 295);
+            this.groupBox2.Location = new System.Drawing.Point(11, 347);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(120, 100);
             this.groupBox2.TabIndex = 19;
@@ -355,7 +360,7 @@
             // BezieRadioButton
             // 
             this.BezieRadioButton.AutoSize = true;
-            this.BezieRadioButton.Location = new System.Drawing.Point(257, 269);
+            this.BezieRadioButton.Location = new System.Drawing.Point(18, 296);
             this.BezieRadioButton.Name = "BezieRadioButton";
             this.BezieRadioButton.Size = new System.Drawing.Size(64, 21);
             this.BezieRadioButton.TabIndex = 18;
@@ -367,7 +372,7 @@
             // 
             this.LineRadioButton.AutoSize = true;
             this.LineRadioButton.Checked = true;
-            this.LineRadioButton.Location = new System.Drawing.Point(257, 243);
+            this.LineRadioButton.Location = new System.Drawing.Point(18, 267);
             this.LineRadioButton.Name = "LineRadioButton";
             this.LineRadioButton.Size = new System.Drawing.Size(51, 21);
             this.LineRadioButton.TabIndex = 17;
@@ -376,6 +381,39 @@
             this.LineRadioButton.UseCompatibleTextRendering = true;
             this.LineRadioButton.UseVisualStyleBackColor = true;
             this.LineRadioButton.CheckedChanged += new System.EventHandler(this.RadioButton_CheckedChanged);
+            // 
+            // WidthNumericUpDown
+            // 
+            this.WidthNumericUpDown.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.WidthNumericUpDown.Location = new System.Drawing.Point(343, 253);
+            this.WidthNumericUpDown.Minimum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.WidthNumericUpDown.Name = "WidthNumericUpDown";
+            this.WidthNumericUpDown.Size = new System.Drawing.Size(120, 22);
+            this.WidthNumericUpDown.TabIndex = 21;
+            this.WidthNumericUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.WidthNumericUpDown.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.WidthNumericUpDown.ValueChanged += new System.EventHandler(this.WidthNumericUpDown_ValueChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(267, 255);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(70, 17);
+            this.label1.TabIndex = 22;
+            this.label1.Text = "Width (%)";
             // 
             // MainForm
             // 
@@ -388,13 +426,13 @@
             this.KeyPreview = true;
             this.Name = "MainForm";
             this.Text = "MyFont";
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.WidthNumericUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -432,6 +470,8 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.RadioButton LastBezierRadioButton;
         private System.Windows.Forms.RadioButton LastLineRadioButton;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.NumericUpDown WidthNumericUpDown;
     }
 }
 

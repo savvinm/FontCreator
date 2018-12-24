@@ -383,9 +383,21 @@ namespace Task_6
                         return P;
             return null;
         }
+        public void ChangeWidth(int percent)
+        {
+            font.symbolWidth = percent; 
+        }
         public void DrawBorder(Graphics g, ScreenConverter sc)
         {
-            g.DrawRectangle(Pens.Black, sc.II(sc.RX), sc.JJ(sc.RY), sc.LS(1), sc.LS(1));
+            PointF p1 = new PointF(sc.II(0), sc.JJ(0));
+            PointF p2 = new PointF(sc.II(0), sc.JJ(1));
+            PointF p3 = new PointF(sc.II(1 *font.symbolWidth / 100f), sc.JJ(0));
+            PointF p4 = new PointF(sc.II(1 * font.symbolWidth / 100f), sc.JJ(1));
+            g.DrawLine(Pens.Black, p1, p2);
+            g.DrawLine(Pens.Black, p1, p3);
+            g.DrawLine(Pens.Black, p4, p3);
+            g.DrawLine(Pens.Black, p2, p4);
+            //g.DrawRectangle(Pens.Black, sc.II(sc.RX), sc.JJ(sc.RY), sc.LS(1), sc.LS(1));
         }
         private void DrawContour(Graphics g, Contour c, ScreenConverter sc)
         {
