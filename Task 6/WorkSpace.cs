@@ -137,7 +137,9 @@ namespace Task_6
         public void CloseContour(ILIneFactory factory)
         {
             RemoveLines();
-            
+
+            if (curContour.myPoints.Count < 2)
+                curContour.lines.Clear();
             if (curContour.myPoints.Count == 2)
             {
                 if (curContour.lines.Count > 1)
@@ -280,6 +282,11 @@ namespace Task_6
                         j--;
                     }
                 }
+              /*  if (curContour.lines[i].GetPoints()[0].EqualTo(curContour.lines[i].GetPoints()[1]))
+                { 
+                   curContour.lines.RemoveAt(i);
+                    i--;
+                }*/
             }
         }
         public void DeletePoints(ILIneFactory factory, ILIneFactory fact)
@@ -294,13 +301,31 @@ namespace Task_6
                         curContour.myPoints[curContour.myPoints.Count > i + 1 ? i + 1 : 0].First = true;
                     }
                     DeletePoint(factory, i);
-                    if (i == curContour.myPoints.Count)
-                        CloseContour(fact);
+                    /*if (i == curContour.myPoints.Count)
+                        CloseContour(fact);*/
                     //curContour.myPoints.RemoveAt(i);
                     i--;
                 }
             }
-            lastPoint = curContour.myPoints.Last();
+            RemoveLastLine();
+            if (curContour.myPoints.Count > 1)
+            {
+                lastPoint = curContour.myPoints.Last();
+                if (!lastPoint.EqualTo(curContour.myPoints.Last()))
+                    CloseContour(fact);
+                return;
+              // lastPoint = curContour.myPoints.Last();
+            }
+            if(curContour.myPoints.Count == 1)
+            {
+                lastPoint = firstPoint;
+                return;
+            }
+            else
+            {
+                lastPoint = null;
+                firstPoint = null;
+            }
             //CloseContour(fact);
             //RemoveLastLine();
         }
@@ -320,13 +345,19 @@ namespace Task_6
             }*/
             //int i = n / 2;
 
-            curContour.lines.RemoveAt(n);
-            int i = n - 1 >= 0 ? n - 1 : curContour.lines.Count - 1;
+            if (curContour.lines.Count > n)
+                 curContour.lines.RemoveAt(n);
+            if (curContour.lines.Count == 1)
+            {
+                curContour.myPoints.RemoveAt(n);
+                return;
+            }
+               int i = n - 1 >= 0 ? n - 1 : curContour.lines.Count - 1;
             // curContour.lines.RemoveAt(i);
             curContour.lines[i] = factory.Create(curContour.myPoints[n - 1 >= 0 ? n - 1 : curContour.myPoints.Count - n - 1],
                             curContour.myPoints[curContour.myPoints.Count > n + 1 ? n + 1 : n + 1 - curContour.myPoints.Count]);
             curContour.myPoints.RemoveAt(n);
-            lastPoint = curContour.myPoints.Last();
+            //lastPoint = curContour.myPoints.Last();*/
         }
         private int SearchMyPoint(PointF p, ScreenConverter sc)
         {
@@ -351,6 +382,10 @@ namespace Task_6
                     if (p.X <= sc.II(P.X) + 4 && p.X >= sc.II(P.X) - 4 && p.Y >= sc.JJ(P.Y) - 4 && p.Y <= sc.JJ(P.Y) + 4)
                         return P;
             return null;
+        }
+        public void DrawBorder(Graphics g, ScreenConverter sc)
+        {
+            g.DrawRectangle(Pens.Black, sc.II(sc.RX), sc.JJ(sc.RY), sc.LS(1), sc.LS(1));
         }
         private void DrawContour(Graphics g, Contour c, ScreenConverter sc)
         {
@@ -379,6 +414,7 @@ namespace Task_6
         public void DrawAll(Graphics g, ScreenConverter sc)
         {
             DrawLines(g);
+            DrawBorder(g, sc);
             if (AllSymbol)
                 DrawSymbol(g, sc);
             else

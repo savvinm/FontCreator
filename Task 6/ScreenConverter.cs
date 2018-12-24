@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace Task_6
 {
@@ -11,6 +12,38 @@ namespace Task_6
         private double xr, yr, wr, hr;
         private int ws, hs;
 
+        //public Size Size { get { return size; } set { size = value; } }
+        //public RectangleF Rectangle { get { return rectangle; } set { rectangle = value; } }
+        public int SWidth
+        {
+            get { return ws; }
+            set { ws = value; }
+        }
+        public int SHeight
+        {
+            get { return hs; }
+            set { hs = value; }
+        }
+        public double RWidth
+        {
+            get { return wr; }
+            set { wr = value; }
+        }
+        public double RHeight
+        {
+            get { return hr; }
+            set { hr = value; }
+        }
+        public double RX
+        {
+            get { return xr; }
+            set { xr = value; }
+        }
+        public double RY
+        {
+            get { return yr; }
+            set { yr = value; }
+        }
         public ScreenConverter(double xr, double yr, double wr, double hr, int ws, int hs)
         {
             this.xr = xr;

@@ -15,21 +15,42 @@ namespace Task_6
     {
         public WorkSpace workSpace;
         Point last;
-        ScreenConverter sc;
+        ScreenConverter con;
         ILIneFactory factory;
         ILIneFactory fact;
+        double delta = 0.2;
         public MainForm()
         {
             InitializeComponent();
+            MouseWheel += new MouseEventHandler(MainForm_MouseWheel);
             typeof(Panel).InvokeMember("DoubleBuffered", BindingFlags.SetProperty
            | BindingFlags.Instance | BindingFlags.NonPublic, null, WorkPanel, new object[] { true });
             workSpace = new WorkSpace(WorkPanel.Width, WorkPanel.Height);
-            sc = new ScreenConverter(-0.5, -0.5, 1, 1, WorkPanel.Width, WorkPanel.Height);
+            con = new ScreenConverter(0, 0, 1, 1, WorkPanel.Width, WorkPanel.Height);
             System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
             LineRadioButton.Tag = new LineFactory();
             BezieRadioButton.Tag = new BezieFactory();
             factory = new LineFactory();
             fact = new LineFactory();
+        }
+        private void MainForm_MouseWheel(object sender, MouseEventArgs e)
+        {
+            if (e.Delta > 0)
+            {
+                con.RX += delta;
+                con.RY += delta;
+                con.RWidth -= delta *2;
+                con.RHeight -= delta * 2;
+
+            }
+            else
+            {
+                con.RX -= delta;
+                con.RY -= delta;
+                con.RWidth += delta *2;
+                con.RHeight += delta * 2;
+            }
+            WorkPanel.Invalidate();
         }
         private void AddLineButton_Click(object sender, EventArgs e)
         {
@@ -41,7 +62,7 @@ namespace Task_6
         {
             Bitmap bmp = new Bitmap(WorkPanel.Width, WorkPanel.Height);
             Graphics g = Graphics.FromImage(bmp);
-            workSpace.DrawAll(g, sc);
+            workSpace.DrawAll(g, con);
             e.Graphics.DrawImage(bmp, 0, 0);
             g.Dispose();
             bmp.Dispose();
@@ -53,7 +74,7 @@ namespace Task_6
             {
                 last = e.Location;
             }
-            workSpace.PointIn(e.Location, factory, fact, sc);
+            workSpace.PointIn(e.Location, factory, fact, con);
             WorkPanel.Invalidate();
         }
 
@@ -69,13 +90,25 @@ namespace Task_6
             {
                 float dx = e.Location.X - last.X;
                 float dy = e.Location.Y - last.Y;
-                workSpace.UpdatePoint(dx, dy, sc);
+                workSpace.UpdatePoint(dx, dy,con);
                 WorkPanel.Invalidate();
                 last = e.Location;
             }
             last = e.Location;
         }
-
+        private void MainForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            //Focus();
+            if (e.KeyData == Keys.W)
+                con.RY -= con.RHeight / 50;
+            if (e.KeyData == Keys.S)
+                con.RY += con.RHeight / 50;
+            if (e.KeyData == Keys.A)
+                con.RX -= con.RWidth / 50;
+            if (e.KeyData == Keys.D)
+                con.RX += con.RWidth / 50;
+            WorkPanel.Invalidate();
+        }
         private void WorkPanel_MouseUp(object sender, MouseEventArgs e)
         {
             if (e.Button.HasFlag(MouseButtons.Left))
